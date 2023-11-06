@@ -31,7 +31,6 @@ import com.vaadin.flow.theme.Theme;
 @SpringBootApplication
 @Theme("petclinic")
 @PWA(name = "Pet Clinic", shortName = "Pet Clinic", offlineResources = { "icons/icon.png" })
-@NpmPackage(value = "line-awesome", version = "1.3.0")
 public class PetClinicApplication extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {
