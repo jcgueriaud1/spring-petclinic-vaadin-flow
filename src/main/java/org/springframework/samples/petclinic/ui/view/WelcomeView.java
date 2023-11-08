@@ -5,8 +5,10 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 
-@Route(value = "", layout = MainContentLayout.class)
+@RouteAlias(value = "", layout = MainContentLayout.class)
+@Route(value = "home", layout = MainContentLayout.class)
 public class WelcomeView extends VerticalLayout implements HasDynamicTitle {
 
 	public WelcomeView() {

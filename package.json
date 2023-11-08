@@ -66,6 +66,8 @@
     "@vaadin/vaadin-usage-statistics": "2.1.2",
     "@vaadin/vertical-layout": "24.2.2",
     "@vaadin/virtual-list": "24.2.2",
+    "accessibility-checker": "3.1.49",
+    "accessibility-checker-engine": "3.1.49",
     "construct-style-sheets-polyfill": "3.1.0",
     "date-fns": "2.29.3",
     "lit": "2.8.0",
@@ -154,6 +156,8 @@
       "@vaadin/vaadin-usage-statistics": "2.1.2",
       "@vaadin/vertical-layout": "24.2.2",
       "@vaadin/virtual-list": "24.2.2",
+      "accessibility-checker": "3.1.49",
+      "accessibility-checker-engine": "3.1.49",
       "construct-style-sheets-polyfill": "3.1.0",
       "date-fns": "2.29.3",
       "lit": "2.8.0",
@@ -176,7 +180,7 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "f6605195d46ebdc5f9744b1ea31b02f05bbdc61152fdc81dd67939bcb24c04c1"
+    "hash": "6af7e4f83de8b975cb9cc1365ffc8a6591e8cfc2cb435bee782f555744b56d85"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -246,6 +250,8 @@
     "@vaadin/overlay": "$@vaadin/overlay",
     "@vaadin/a11y-base": "$@vaadin/a11y-base",
     "@vaadin/side-nav": "$@vaadin/side-nav",
-    "mobile-drag-drop": "$mobile-drag-drop"
+    "mobile-drag-drop": "$mobile-drag-drop",
+    "accessibility-checker-engine": "$accessibility-checker-engine",
+    "accessibility-checker": "$accessibility-checker"
   }
 }
