@@ -9,3 +9,16 @@ footer.footer {
 header {
     width: 100%;
 }
+
+.link__skip {
+    background-color: var(--lumo-base-color);
+    margin-top: -100%;
+    position: absolute;
+    transition: box-shadow var(--transition-duration-s) var(--transition-timing-function),
+    color var(--transition-duration-s) var(--transition-timing-function),
+    margin-top var(--transition-duration-s) var(--transition-timing-function);
+}
+
+.link__skip:focus {
+    margin-top: calc(var(--lumo-space-s) * 1.5);
+}
