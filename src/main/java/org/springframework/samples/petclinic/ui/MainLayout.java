@@ -61,6 +61,7 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 
 	private SideNav createMenu() {
 		SideNav sideNav = new SideNav();
+		sideNav.addClassName("side-nav-top");
 		sideNav.addItem(
 			new SideNavItem(getTranslation("home"), WelcomeView.class, VaadinIcon.HOME.create()),
 			new SideNavItem(getTranslation("findOwners"), OwnersFindView.class, VaadinIcon.SEARCH.create()),
