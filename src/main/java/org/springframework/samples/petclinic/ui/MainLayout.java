@@ -5,7 +5,6 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Nav;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -14,8 +13,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.RouteConfiguration;
@@ -30,7 +27,7 @@ import org.springframework.samples.petclinic.ui.view.vet.VetsView;
  */
 public class MainLayout extends AppLayout implements AfterNavigationObserver {
 
-	private final Tabs menu;
+	private final SideNav menu;
 	private Anchor skipToMainContent;
 
 	public MainLayout() {
@@ -61,54 +58,15 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 		return new Header(layout);
 	}
 
-	private Tabs createMenu() {
-		final Tabs tabs = new Tabs();
-		tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
-		tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
-		tabs.setId("tabs");
-		tabs.add(createMenuItems());
-		return tabs;
-	}
-
-	private Tab[] createMenuItems() {
-		return new Tab[] {
-				new Tab(createRouterLink("home", VaadinIcon.HOME, WelcomeView.class)),
-				new Tab(createRouterLink("findOwners", VaadinIcon.SEARCH, OwnersFindView.class)),
-				new Tab(createRouterLink("veterinarians", VaadinIcon.LIST, VetsView.class)),
-				new Tab(createRouterLink("error", VaadinIcon.WARNING, ErrorView.class))
-		};
-	}
-
-	private RouterLink createRouterLink(String translationKey, VaadinIcon viewIcon,
-			Class<? extends Component> navigationTarget) {
-		final RouterLink routerLink =
-				new RouterLink(getTranslation(translationKey), navigationTarget);
-		routerLink.addComponentAsFirst(viewIcon.create());
-		routerLink.addClassNames("flex", "gap-s", "uppercase");
-		return routerLink;
-	}
-
-	@Override
-	protected void afterNavigation() {
-		super.afterNavigation();
-		updateChrome();
-	}
-
-	private void updateChrome() {
-		getTabWithCurrentRoute().ifPresent(menu::setSelectedTab);
-	}
-
-	private Optional<Tab> getTabWithCurrentRoute() {
-		final String currentRoute = RouteConfiguration.forSessionScope()
-				.getUrl(getContent().getClass());
-		return menu.getChildren().filter(tab -> hasLink(tab, currentRoute))
-				.findFirst().map(Tab.class::cast);
-	}
-
-	private boolean hasLink(Component tab, String currentRoute) {
-		return tab.getChildren().filter(RouterLink.class::isInstance)
-				.map(RouterLink.class::cast).map(RouterLink::getHref)
-				.anyMatch(currentRoute::equals);
+	private SideNav createMenu() {
+		SideNav sideNav = new SideNav();
+		sideNav.addItem(
+			new SideNavItem(getTranslation("home"), WelcomeView.class, VaadinIcon.HOME.create()),
+			new SideNavItem(getTranslation("findOwners"), OwnersFindView.class, VaadinIcon.SEARCH.create()),
+			new SideNavItem(getTranslation("veterinarians"), VetsView.class, VaadinIcon.LIST.create()),
+			new SideNavItem(getTranslation("error"), ErrorView.class, VaadinIcon.WARNING.create())
+		);
+		return sideNav;
 	}
 
 	@Override
