@@ -51,6 +51,7 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 		final Span brand = new Span();
 		final Anchor brandLink = new Anchor("/", brand);
 		brandLink.addClassName("navbar-brand");
+		brandLink.setAriaLabel("Go to the homepage");
 		layout.add(brandLink);
 
 		layout.add(menu);
