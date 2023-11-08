@@ -28,7 +28,6 @@ public class VetsView extends VerticalLayout {
         setSizeFull();
 
         H2 title = new H2(getTranslation("veterinarians"));
-
         vetsGrid = new Grid<>();
         vetsGrid.addColumn(vet -> vet.getFirstName() + " " + vet.getLastName())
                 .setHeader(getTranslation("name"));
