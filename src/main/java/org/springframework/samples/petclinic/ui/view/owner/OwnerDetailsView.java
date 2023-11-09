@@ -41,7 +41,7 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
         presenter.setView(this);
 
-		NativeLabel title = new NativeLabel(getTranslation("ownerInformation"));
+		Label title = new Label(getTranslation("ownerInformation"));
 		title.addClassName("title");
 
         TextField nameTextField = new TextField();
