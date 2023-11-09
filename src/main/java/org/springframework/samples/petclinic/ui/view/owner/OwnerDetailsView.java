@@ -25,7 +25,7 @@ import org.springframework.samples.petclinic.backend.owner.Pet;
 import org.springframework.samples.petclinic.backend.visit.Visit;
 import org.springframework.samples.petclinic.ui.util.FormUtil;
 import org.springframework.samples.petclinic.ui.view.MainContentLayout;
-import org.springframework.samples.petclinic.ui.view.visit.VisitCreateView;
+import org.springframework.samples.petclinic.ui.view.visit.VisitCreateDialog;
 
 @Route(value = "owners/:ownerId([0-9]+)", layout = MainContentLayout.class)
 public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObserver {
@@ -36,10 +36,13 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
     private final OwnerDetailsPresenter presenter;
 
-    OwnerDetailsView(OwnerDetailsPresenter presenter) {
-        this.presenter = presenter;
+	private final  VisitCreateDialog visitCreateDialog;
 
-        presenter.setView(this);
+    OwnerDetailsView(OwnerDetailsPresenter presenter, VisitCreateDialog visitCreateDialog) {
+        this.presenter = presenter;
+		this.visitCreateDialog = visitCreateDialog;
+
+		presenter.setView(this);
 
 		Label title = new Label(getTranslation("ownerInformation"));
 		title.addClassName("title");
@@ -163,11 +166,7 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
             });
             Button addVisitButton = new Button(getTranslation("addVisit"));
             addVisitButton.addClickListener(e -> {
-                RouteParam ownerIdParam = new RouteParam(OWNER_ID_ROUTE_PARAM,
-                        presenter.getOwner().getId().toString());
-                RouteParam petIdParam = new RouteParam("petId", pet.getId().toString());
-                UI.getCurrent().navigate(VisitCreateView.class,
-                        new RouteParameters(ownerIdParam, petIdParam));
+				visitCreateDialog.initModel(presenter.getOwner().getId(), pet.getId());
             });
 
             HorizontalLayout petButtons = new HorizontalLayout(editPetButton, addVisitButton);

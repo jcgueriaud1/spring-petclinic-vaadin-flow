@@ -21,7 +21,7 @@ public class VisitCreatePresenter {
 
     private final VisitRepository visitRepository;
 
-    private VisitCreateView view;
+    private VisitCreateViewInterface view;
 
     private VisitCreateDto model;
 
@@ -33,7 +33,7 @@ public class VisitCreatePresenter {
         this.visitRepository = visitRepository;
     }
 
-    public void setView(VisitCreateView view) {
+    public void setView(VisitCreateViewInterface view) {
         this.view = view;
     }
 
