@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -29,149 +30,158 @@ import org.springframework.samples.petclinic.ui.view.visit.VisitCreateView;
 @Route(value = "owners/:ownerId([0-9]+)", layout = MainContentLayout.class)
 public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObserver {
 
-    private static final String OWNER_ID_ROUTE_PARAM = "ownerId";
+	private static final String OWNER_ID_ROUTE_PARAM = "ownerId";
 
-    private final Binder<Owner> binder = new Binder<>();
+	private final Binder<Owner> binder = new Binder<>();
 
-    private final OwnerDetailsPresenter presenter;
+	private final OwnerDetailsPresenter presenter;
 
-    OwnerDetailsView(OwnerDetailsPresenter presenter) {
-        this.presenter = presenter;
+	OwnerDetailsView(OwnerDetailsPresenter presenter) {
+		this.presenter = presenter;
 
-        presenter.setView(this);
+		presenter.setView(this);
 
         H2 title = new H2(getTranslation("ownerInformation"));
 
-        TextField nameTextField = new TextField();
-        binder.bind(nameTextField, owner -> owner.getFirstName() + " " + owner.getLastName(), null);
+		TextField nameTextField = new TextField();
+		binder.bind(nameTextField, owner -> owner.getFirstName() + " " + owner.getLastName(), null);
 
-        TextField addressTextField = new TextField();
-        binder.bind(addressTextField, Owner::getAddress, null);
+		TextField addressTextField = new TextField();
+		binder.bind(addressTextField, Owner::getAddress, null);
 
-        TextField cityTextField = new TextField();
-        binder.bind(cityTextField, Owner::getCity, null);
+		TextField cityTextField = new TextField();
+		binder.bind(cityTextField, Owner::getCity, null);
 
-        TextField telephoneTextField = new TextField();
-        binder.bind(telephoneTextField, Owner::getTelephone, null);
+		TextField telephoneTextField = new TextField();
+		binder.bind(telephoneTextField, Owner::getTelephone, null);
 
-        FormLayout ownerForm = new FormLayout();
-        FormUtil.singleColumn(ownerForm);
-        ownerForm.addFormItem(nameTextField, getTranslation("name"));
-        ownerForm.addFormItem(addressTextField, getTranslation("address"));
-        ownerForm.addFormItem(cityTextField, getTranslation("city"));
-        ownerForm.addFormItem(telephoneTextField, getTranslation("telephone"));
+		nameTextField.setEnabled(false);
+		addressTextField.setEnabled(false);
+		cityTextField.setEnabled(false);
+		telephoneTextField.setEnabled(false);
 
-        Button editOwnerButton = new Button(getTranslation("editOwner"));
-        editOwnerButton
-                .addClickListener(
-                        e -> UI.getCurrent().navigate(OwnerEditView.class, new RouteParameters(
-                                OWNER_ID_ROUTE_PARAM, presenter.getOwner().getId().toString())));
+		FormLayout ownerForm = new FormLayout();
+		FormUtil.singleColumn(ownerForm);
+		ownerForm.addFormItem(nameTextField, getTranslation("name"));
+		ownerForm.addFormItem(addressTextField, getTranslation("address"));
+		ownerForm.addFormItem(cityTextField, getTranslation("city"));
+		ownerForm.addFormItem(telephoneTextField, getTranslation("telephone"));
 
-        Button addNewPetButton = new Button(getTranslation("addNewPet"));
-        addNewPetButton
-                .addClickListener(
-                        e -> UI.getCurrent().navigate(PetCreateView.class, new RouteParameters(
-                                OWNER_ID_ROUTE_PARAM, presenter.getOwner().getId().toString())));
+		Button editOwnerButton = new Button(getTranslation("editOwner"));
+		editOwnerButton
+			.addClickListener(
+				e -> UI.getCurrent().navigate(OwnerEditView.class, new RouteParameters(
+					OWNER_ID_ROUTE_PARAM, presenter.getOwner().getId().toString())));
 
-        HorizontalLayout buttonBar = new HorizontalLayout(editOwnerButton, addNewPetButton);
+		Button addNewPetButton = new Button(getTranslation("addNewPet"));
+		addNewPetButton
+			.addClickListener(
+				e -> UI.getCurrent().navigate(PetCreateView.class, new RouteParameters(
+					OWNER_ID_ROUTE_PARAM, presenter.getOwner().getId().toString())));
 
-        PetsContainer petsComponent = new PetsContainer();
-        petsComponent.getContent().addClassName("pet-container");
-        petsComponent.getContent().setSizeFull();
-        petsComponent.getContent().setPadding(false);
-        binder.bind(petsComponent, Owner::getPets, null);
+		HorizontalLayout buttonBar = new HorizontalLayout(editOwnerButton, addNewPetButton);
 
-        add(title, ownerForm, buttonBar, petsComponent);
-    }
+		PetsContainer petsComponent = new PetsContainer();
+		petsComponent.getContent().addClassName("pet-container");
+		petsComponent.getContent().setSizeFull();
+		petsComponent.getContent().setPadding(false);
+		binder.bind(petsComponent, Owner::getPets, null);
 
-    @Override
-    public void beforeEnter(BeforeEnterEvent event) {
-        final Integer ownerId =
-                event.getRouteParameters().getInteger(OWNER_ID_ROUTE_PARAM).orElse(null);
-        presenter.findOwner(ownerId);
-    }
+		add(title, ownerForm, buttonBar, petsComponent);
+	}
 
-    public void show(Owner owner) {
-        binder.readBean(owner);
-    }
+	@Override
+	public void beforeEnter(BeforeEnterEvent event) {
+		final Integer ownerId =
+			event.getRouteParameters().getInteger(OWNER_ID_ROUTE_PARAM).orElse(null);
+		presenter.findOwner(ownerId);
+	}
 
-    class PetsContainer extends AbstractCompositeField<VerticalLayout, PetsContainer, List<Pet>> {
+	public void show(Owner owner) {
+		binder.readBean(owner);
+	}
 
-        public PetsContainer() {
-            super(new ArrayList<>());
-        }
+	class PetsContainer extends AbstractCompositeField<VerticalLayout, PetsContainer, List<Pet>> {
 
-        @Override
-        protected void setPresentationValue(List<Pet> newPresentationValue) {
-            getContent().removeAll();
+		public PetsContainer() {
+			super(new ArrayList<>());
+		}
 
-            H2 petsAndVisits = new H2(getTranslation("petsAndVisits"));
-            getContent().add(petsAndVisits);
+		@Override
+		protected void setPresentationValue(List<Pet> newPresentationValue) {
+			getContent().removeAll();
 
-            for (Pet pet : newPresentationValue) {
-                addPet(pet);
-            }
-        }
+			H2 petsAndVisits = new H2(getTranslation("petsAndVisits"));
+			getContent().add(petsAndVisits);
 
-        private void addPet(Pet pet) {
-            Binder<Pet> petBinder = new Binder<>();
+			for (Pet pet : newPresentationValue) {
+				addPet(pet);
+			}
+		}
 
-            TextField petNameTextField = new TextField();
-            petBinder.bind(petNameTextField, Pet::getName, null);
+		private void addPet(Pet pet) {
+			Binder<Pet> petBinder = new Binder<>();
 
-            TextField petBirthDateTextField = new TextField();
-            petBinder.bind(petBirthDateTextField,
-                    p -> DateTimeFormatter.ofPattern("yyyy-MM-dd").format(p.getBirthDate()), null);
+			TextField petNameTextField = new TextField();
+			petBinder.bind(petNameTextField, Pet::getName, null);
 
-            TextField petTypeField = new TextField();
-            petBinder.bind(petTypeField, p -> p.getType().getName(), null);
+			TextField petBirthDateTextField = new TextField();
+			petBinder.bind(petBirthDateTextField,
+				p -> DateTimeFormatter.ofPattern("yyyy-MM-dd").format(p.getBirthDate()), null);
 
-            FormLayout petsForm = new FormLayout();
-            petsForm.setSizeUndefined();
-            petsForm.addFormItem(petNameTextField, getTranslation("name"));
-            petsForm.addFormItem(petBirthDateTextField, getTranslation("birthDate"));
-            petsForm.addFormItem(petTypeField, getTranslation("type"));
+			TextField petTypeField = new TextField();
+			petBinder.bind(petTypeField, p -> p.getType().getName(), null);
 
-            Grid<Visit> petVisitsGrid = new Grid<>();
+			petNameTextField.setEnabled(false);
+			petBirthDateTextField.setEnabled(false);
+			petTypeField.setEnabled(false);
 
-            petVisitsGrid
-                    .addColumn(new LocalDateRenderer<>(Visit::getDate,"yyyy-MM-dd"))
-                    .setHeader(getTranslation("visitDate"));
-            petVisitsGrid.addColumn(Visit::getDescription).setHeader(getTranslation("description"));
-            petVisitsGrid.setItems(pet.getVisits());
-            petVisitsGrid.setAllRowsVisible(true);
-            petVisitsGrid.setSizeUndefined();
+			FormLayout petsForm = new FormLayout();
+			petsForm.setSizeUndefined();
+			petsForm.addFormItem(petNameTextField, getTranslation("name"));
+			petsForm.addFormItem(petBirthDateTextField, getTranslation("birthDate"));
+			petsForm.addFormItem(petTypeField, getTranslation("type"));
 
-            Button editPetButton = new Button(getTranslation("editPet"));
-            editPetButton.addClickListener(e -> {
-                RouteParam ownerIdParam = new RouteParam(OWNER_ID_ROUTE_PARAM,
-                        presenter.getOwner().getId().toString());
-                RouteParam petIdParam = new RouteParam("petId", pet.getId().toString());
-                UI.getCurrent().navigate(PetEditView.class,
-                        new RouteParameters(ownerIdParam, petIdParam));
-            });
-            Button addVisitButton = new Button(getTranslation("addVisit"));
-            addVisitButton.addClickListener(e -> {
-                RouteParam ownerIdParam = new RouteParam(OWNER_ID_ROUTE_PARAM,
-                        presenter.getOwner().getId().toString());
-                RouteParam petIdParam = new RouteParam("petId", pet.getId().toString());
-                UI.getCurrent().navigate(VisitCreateView.class,
-                        new RouteParameters(ownerIdParam, petIdParam));
-            });
+			Grid<Visit> petVisitsGrid = new Grid<>();
 
-            HorizontalLayout petButtons = new HorizontalLayout(editPetButton, addVisitButton);
+			petVisitsGrid
+				.addColumn(new LocalDateRenderer<>(Visit::getDate,"yyyy-MM-dd"))
+				.setHeader(getTranslation("visitDate"));
+			petVisitsGrid.addColumn(Visit::getDescription).setHeader(getTranslation("description"));
+			petVisitsGrid.setItems(pet.getVisits());
+			petVisitsGrid.setAllRowsVisible(true);
+			petVisitsGrid.setSizeUndefined();
 
-            VerticalLayout visitsContainer = new VerticalLayout(petVisitsGrid, petButtons);
-            visitsContainer.addClassName("visits");
+			Button editPetButton = new Button(getTranslation("editPet"));
+			editPetButton.addClickListener(e -> {
+				RouteParam ownerIdParam = new RouteParam(OWNER_ID_ROUTE_PARAM,
+					presenter.getOwner().getId().toString());
+				RouteParam petIdParam = new RouteParam("petId", pet.getId().toString());
+				UI.getCurrent().navigate(PetEditView.class,
+					new RouteParameters(ownerIdParam, petIdParam));
+			});
+			Button addVisitButton = new Button(getTranslation("addVisit"));
+			addVisitButton.addClickListener(e -> {
+				RouteParam ownerIdParam = new RouteParam(OWNER_ID_ROUTE_PARAM,
+					presenter.getOwner().getId().toString());
+				RouteParam petIdParam = new RouteParam("petId", pet.getId().toString());
+				UI.getCurrent().navigate(VisitCreateView.class,
+					new RouteParameters(ownerIdParam, petIdParam));
+			});
 
-            HorizontalLayout petsAndVisitsLayout = new HorizontalLayout(petsForm, visitsContainer);
-            petsAndVisitsLayout.addClassName("pet-row");
+			HorizontalLayout petButtons = new HorizontalLayout(editPetButton, addVisitButton);
 
-            getContent().add(petsAndVisitsLayout);
+			VerticalLayout visitsContainer = new VerticalLayout(petVisitsGrid, petButtons);
+			visitsContainer.addClassName("visits");
 
-            petBinder.readBean(pet);
-        }
+			HorizontalLayout petsAndVisitsLayout = new HorizontalLayout(petsForm, visitsContainer);
+			petsAndVisitsLayout.addClassName("pet-row");
 
-    }
+			getContent().add(petsAndVisitsLayout);
+
+			petBinder.readBean(pet);
+		}
+
+	}
 
 }
