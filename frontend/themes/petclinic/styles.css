@@ -3,3 +3,12 @@
 @import url('./main-content-layout.css');
 @import url('./pets-container.css');
 @import url('./navigation.css');
+
+
+.title {
+    font-size: var(--lumo-font-size-xxl);
+    color: var(--lumo-header-text-color);
+    font-weight: 600;
+    line-height: var(--lumo-line-height-xs);
+    margin-block: 0;
+}

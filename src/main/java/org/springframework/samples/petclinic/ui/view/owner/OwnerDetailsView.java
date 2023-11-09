@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -40,7 +41,8 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
         presenter.setView(this);
 
-        H2 title = new H2(getTranslation("ownerInformation"));
+		NativeLabel title = new NativeLabel(getTranslation("ownerInformation"));
+		title.addClassName("title");
 
         TextField nameTextField = new TextField();
         binder.bind(nameTextField, owner -> owner.getFirstName() + " " + owner.getLastName(), null);
@@ -53,6 +55,11 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
         TextField telephoneTextField = new TextField();
         binder.bind(telephoneTextField, Owner::getTelephone, null);
+
+		nameTextField.setEnabled(false);
+		addressTextField.setEnabled(false);
+		cityTextField.setEnabled(false);
+		telephoneTextField.setEnabled(false);
 
         FormLayout ownerForm = new FormLayout();
         FormUtil.singleColumn(ownerForm);
@@ -125,6 +132,10 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
             TextField petTypeField = new TextField();
             petBinder.bind(petTypeField, p -> p.getType().getName(), null);
+
+			petNameTextField.setEnabled(false);
+			petBirthDateTextField.setEnabled(false);
+			petTypeField.setEnabled(false);
 
             FormLayout petsForm = new FormLayout();
             petsForm.setSizeUndefined();
