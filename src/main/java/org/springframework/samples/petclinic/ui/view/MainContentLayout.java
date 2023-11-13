@@ -26,6 +26,7 @@ public class MainContentLayout extends VerticalLayout implements RouterLayout {
 		setSizeFull();
 		setJustifyContentMode(JustifyContentMode.BETWEEN);
 		content.setSizeFull();
+		content.setId("main-content");
 
 		add(content, footer);
 	}
