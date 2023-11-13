@@ -25,3 +25,14 @@ vaadin-side-nav.side-nav-top vaadin-side-nav-item::part(children) {
     padding: var(--vaadin-side-nav-child-padding, 0px);
     position: var(--vaadin-side-nav-child-position, static);
 }
+
+vaadin-side-nav-item {
+    text-transform: uppercase;
+}
+vaadin-side-nav-item:not([current]) > [slot="prefix"] {
+    color:var(--lumo-body-text-color);
+}
+
+vaadin-side-nav-item > [slot="prefix"] {
+    padding: 0;
+}
