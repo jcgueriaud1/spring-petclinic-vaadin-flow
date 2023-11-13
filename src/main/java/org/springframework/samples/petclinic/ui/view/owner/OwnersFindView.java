@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.ui.view.owner;
 
 import java.util.stream.Collectors;
 
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.router.PageTitle;
 import org.springframework.samples.petclinic.backend.owner.Owner;
@@ -41,7 +42,8 @@ public class OwnersFindView extends VerticalLayout {
 		H2 title = new H2(getTranslation("findOwners"));
 
 		lastNameTextField = new TextField();
-		lastNameTextField.setPrefixComponent(VaadinIcon.SEARCH.create());
+		Icon searchIcon = VaadinIcon.SEARCH.create();
+		lastNameTextField.setPrefixComponent(searchIcon);
 		FormLayout form = new FormLayout(lastNameTextField);
 
 		Button findOwnerButton = new Button(getTranslation("findOwner"));
