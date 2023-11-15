@@ -27,7 +27,6 @@ import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 
 @Route(value = "owners/find", layout = MainContentLayout.class)
-@PageTitle("Find Owners")
 public class OwnersFindView extends VerticalLayout {
 
 	private final Grid<Owner> ownersGrid;
