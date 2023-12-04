@@ -5,6 +5,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -20,39 +21,37 @@ public abstract class OwnerFormView extends VerticalLayout {
     OwnerFormView(OwnerFormPresenter<? extends OwnerFormView> presenter) {
         setWidthFull();
 
-        TextField firstNameTextField = new TextField();
+        TextField firstNameTextField = new TextField(getTranslation("firstName"));
+		TextField lastNameTextField = new TextField(getTranslation("lastName"));
+		TextField addressTextField = new TextField(getTranslation("address"));
+		TextField cityTextField = new TextField(getTranslation("city"));
+		TextField telephoneTextField = new TextField(getTranslation("telephone"));
         binder.forField(firstNameTextField).asRequired().bind(Owner::getFirstName,
                 Owner::setFirstName);
-
-        TextField lastNameTextField = new TextField();
         binder.forField(lastNameTextField).asRequired().bind(Owner::getLastName,
                 Owner::setLastName);
-
-        TextField addressTextField = new TextField();
         binder.forField(addressTextField).asRequired().bind(Owner::getAddress, Owner::setAddress);
-
-        TextField cityTextField = new TextField();
         binder.forField(cityTextField).asRequired().bind(Owner::getCity, Owner::setCity);
-
-        TextField telephoneTextField = new TextField();
         binder.forField(telephoneTextField)
                 .asRequired()
                 .withValidator(new RegexpValidator(getTranslation("telephoneError"), "\\d{1,10}"))
                 .bind(Owner::getTelephone, Owner::setTelephone);
 
-        FormLayout ownerForm = new FormLayout();
-        ownerForm.setWidthFull();
-        FormUtil.singleColumn(ownerForm);
-        ownerForm.addFormItem(firstNameTextField, getTranslation("firstName"));
-        ownerForm.addFormItem(lastNameTextField, getTranslation("lastName"));
-        ownerForm.addFormItem(addressTextField, getTranslation("address"));
-        ownerForm.addFormItem(cityTextField, getTranslation("city"));
-        ownerForm.addFormItem(telephoneTextField, getTranslation("telephone"));
+		VerticalLayout ownerFormCol1 = new VerticalLayout();
+		ownerFormCol1.setSpacing(false);
+		ownerFormCol1.setPadding(false);
+        ownerFormCol1.add(firstNameTextField, addressTextField, telephoneTextField);
+
+		VerticalLayout ownerFormCol2 = new VerticalLayout();
+		ownerFormCol2.setSpacing(false);
+		ownerFormCol2.setPadding(false);
+		ownerFormCol2.add(lastNameTextField, cityTextField);
 
         Button updateOwnerButton = new Button(actionButtonLabel());
         updateOwnerButton.addClickListener(this::actionButtonListener);
 
-        add(new H2(getTranslation("owner")), ownerForm, updateOwnerButton);
+		HorizontalLayout horizontalLayout = new HorizontalLayout(ownerFormCol1, ownerFormCol2);
+		add(new H2(getTranslation("owner")), horizontalLayout, updateOwnerButton);
 
         firstNameTextField.focus();
     }
