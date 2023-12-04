@@ -45,8 +45,13 @@ public class OwnersFindView extends VerticalLayout {
 		lastNameTextField.setPrefixComponent(searchIcon);
 		FormLayout form = new FormLayout(lastNameTextField);
 
+		Icon findOwnerIcon = VaadinIcon.SEARCH.create();
+		findOwnerIcon.addClassName("button-icon");
+		findOwnerIcon.addClickListener(e -> updateGrid(presenter));
+
 		Button findOwnerButton = new Button(getTranslation("findOwner"));
 		findOwnerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+		findOwnerButton.addClickListener(e -> updateGrid(presenter));
 
 		Button addOwnerButton = new Button(getTranslation("addOwner"));
 		addOwnerButton.addClickListener(
@@ -70,11 +75,10 @@ public class OwnersFindView extends VerticalLayout {
 		updateGrid(presenter);
 
 		lastNameTextField.setValueChangeMode(ValueChangeMode.EAGER);
-		findOwnerButton.addClickListener(e -> updateGrid(presenter));
 
 		HorizontalLayout formContainer =
-				new HorizontalLayout(form, findOwnerButton, addOwnerButton);
-		formContainer.setAlignItems(Alignment.END);
+				new HorizontalLayout(form, findOwnerIcon, addOwnerButton);
+		formContainer.setAlignItems(Alignment.CENTER);
 		formContainer.setPadding(false);
 
 		add(title, formContainer, ownersGrid);
