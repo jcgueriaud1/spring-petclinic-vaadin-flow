@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -118,6 +119,11 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
             H2 petsAndVisits = new H2(getTranslation("petsAndVisits"));
             getContent().add(petsAndVisits);
 
+			HorizontalLayout petsAndVisitsHeader = new HorizontalLayout();
+			petsAndVisitsHeader.addAndExpand(new H3(getTranslation("pets")), new H3(getTranslation("visits")));
+			petsAndVisitsHeader.addClassName("pet-row");
+			petsAndVisitsHeader.setWidthFull();
+			getContent().add(petsAndVisitsHeader);
             for (Pet pet : newPresentationValue) {
                 addPet(pet);
             }
