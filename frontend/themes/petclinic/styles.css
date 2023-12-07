@@ -20,4 +20,5 @@
     padding: var(--lumo-space-s);
     --lumo-icon-size-m: 36px;
     border-radius: var(--lumo-border-radius-m);
+    margin-bottom: 4px;
 }

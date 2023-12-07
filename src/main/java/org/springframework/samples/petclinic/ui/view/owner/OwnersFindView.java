@@ -78,7 +78,7 @@ public class OwnersFindView extends VerticalLayout {
 
 		HorizontalLayout formContainer =
 				new HorizontalLayout(form, findOwnerIcon, addOwnerButton);
-		formContainer.setAlignItems(Alignment.CENTER);
+		formContainer.setAlignItems(Alignment.END);
 		formContainer.setPadding(false);
 
 		add(title, formContainer, ownersGrid);
