@@ -21,7 +21,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <vaadin.version>24.3.0.beta1</vaadin.version>
+    <vaadin.version>24.3.0.rc1</vaadin.version>
   </properties>
 
   <repositories>
@@ -157,7 +157,7 @@
     <dependency>
       <groupId>org.parttio</groupId>
       <artifactId>accessibility-checker-for-vaadin</artifactId>
-      <version>0.0.14</version>
+      <version>0.0.15</version>
     </dependency>
 	<dependency>
 	    <groupId>com.vaadin</groupId>
