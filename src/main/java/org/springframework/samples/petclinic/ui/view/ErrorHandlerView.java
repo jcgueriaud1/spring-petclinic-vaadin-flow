@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.ui.view;
 
+import com.vaadin.flow.router.*;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.LoggerFactory;
 
@@ -9,13 +10,10 @@ import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.html.Pre;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.Style.Overflow;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.ErrorParameter;
-import com.vaadin.flow.router.HasErrorParameter;
-import com.vaadin.flow.router.Route;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+@PageTitle("Error page - PetClinic")
 @Route(layout = MainContentLayout.class)
 public class ErrorHandlerView extends VerticalLayout implements HasErrorParameter<Exception> {
 
@@ -27,14 +25,14 @@ public class ErrorHandlerView extends VerticalLayout implements HasErrorParamete
 		H3 message = new H3(getTranslation("somethingHappened"));
 		errorLabel = new NativeLabel();
 		text = new Pre();
-		
+
 		add(image, message, errorLabel, text);
 
 		text.setWidth("80em");
 		text.setHeight("400px");
 		text.getStyle().set("flex", "1 1 auto");
 		text.getStyle().setOverflow(Overflow.SCROLL);
-		
+
 		setSizeFull();
 		setJustifyContentMode(JustifyContentMode.CENTER);
 		setDefaultHorizontalComponentAlignment(Alignment.CENTER);

@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.ui.view.vet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.vaadin.flow.router.PageTitle;
 import org.springframework.samples.petclinic.backend.vet.Specialty;
 import org.springframework.samples.petclinic.backend.vet.Vet;
 import org.springframework.samples.petclinic.ui.view.MainContentLayout;
@@ -13,6 +14,7 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+@PageTitle("Veterinarians - PetClinic")
 @Route(value = "vets", layout = MainContentLayout.class)
 public class VetsView extends VerticalLayout {
 

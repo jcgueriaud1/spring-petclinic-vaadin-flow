@@ -1,8 +1,10 @@
 package org.springframework.samples.petclinic.ui.view;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+@PageTitle("Oops - PetClinic")
 @Route(value = "oups", layout = MainContentLayout.class)
 public class ErrorView extends VerticalLayout {
 

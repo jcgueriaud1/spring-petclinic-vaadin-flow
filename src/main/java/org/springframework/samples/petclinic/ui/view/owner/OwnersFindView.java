@@ -26,6 +26,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 
+@PageTitle("Find owners - PetClinic")
 @Route(value = "owners/find", layout = MainContentLayout.class)
 public class OwnersFindView extends VerticalLayout {
 
@@ -58,6 +59,7 @@ public class OwnersFindView extends VerticalLayout {
 				e -> UI.getCurrent().navigate(OwnerCreateView.class));
 
 		ownersGrid = new Grid<>();
+		ownersGrid.getElement().executeJs("this.shadowRoot.querySelector('table').ariaLabel = $0", "Owners list");
 		ownersGrid
 				.addColumn(new ComponentRenderer<>(owner -> new RouterLink(
 						owner.getFirstName() + " " + owner.getLastName(),

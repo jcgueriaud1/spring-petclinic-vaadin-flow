@@ -3,13 +3,12 @@ package org.springframework.samples.petclinic.ui.view;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
 @RouteAlias(value = "", layout = MainContentLayout.class)
 @Route(value = "home", layout = MainContentLayout.class)
-public class WelcomeView extends VerticalLayout implements HasDynamicTitle {
+public class WelcomeView extends VerticalLayout {
 
 	public WelcomeView() {
 		H2 h2 = new H2(getTranslation("welcome"));
@@ -20,11 +19,6 @@ public class WelcomeView extends VerticalLayout implements HasDynamicTitle {
 		setSizeFull();
 		setJustifyContentMode(JustifyContentMode.CENTER);
 		setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-	}
-
-	@Override
-	public String getPageTitle() {
-		return getTranslation("welcomeTitle");
 	}
 
 }

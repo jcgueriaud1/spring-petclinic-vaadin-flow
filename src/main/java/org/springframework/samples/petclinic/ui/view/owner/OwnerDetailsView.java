@@ -16,11 +16,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteParam;
-import com.vaadin.flow.router.RouteParameters;
+import com.vaadin.flow.router.*;
 import org.springframework.samples.petclinic.backend.owner.Owner;
 import org.springframework.samples.petclinic.backend.owner.Pet;
 import org.springframework.samples.petclinic.backend.visit.Visit;
@@ -28,6 +24,7 @@ import org.springframework.samples.petclinic.ui.util.FormUtil;
 import org.springframework.samples.petclinic.ui.view.MainContentLayout;
 import org.springframework.samples.petclinic.ui.view.visit.VisitCreateDialog;
 
+@PageTitle("View owner - PetClinic")
 @Route(value = "owners/:ownerId([0-9]+)", layout = MainContentLayout.class)
 public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObserver {
 
@@ -153,6 +150,7 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
             petsForm.addFormItem(petTypeField, getTranslation("type"));
 
             Grid<Visit> petVisitsGrid = new Grid<>();
+			petVisitsGrid.getElement().executeJs("this.shadowRoot.querySelector('table').ariaLabel = $0", pet.getName() + " visits");
 
             petVisitsGrid
                     .addColumn(new LocalDateRenderer<>(Visit::getDate,"yyyy-MM-dd"))

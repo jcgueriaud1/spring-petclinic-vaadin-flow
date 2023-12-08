@@ -59,7 +59,20 @@ public class MainLayout extends AppLayout {
 		tabs.add(createMenuItems());
 		return tabs;
 	}
+/*
 
+	private Nav createMenu() {
+		Nav nav = new Nav();
+		nav.addClassName("nav-top");
+		nav.add(
+			createRouterLink("home", VaadinIcon.HOME, WelcomeView.class),
+			createRouterLink("findOwners", VaadinIcon.SEARCH, OwnersFindView.class),
+			createRouterLink("veterinarians", VaadinIcon.LIST, VetsView.class),
+			createRouterLink("error", VaadinIcon.WARNING, ErrorView.class)
+		);
+		return nav;
+	}
+	*/
 	private Tab[] createMenuItems() {
 		return new Tab[] {
 				new Tab(createRouterLink("home", VaadinIcon.HOME, WelcomeView.class)),
