@@ -42,7 +42,11 @@ public class OwnersFindView extends VerticalLayout {
 		H2 title = new H2(getTranslation("findOwners"));
 
 		lastNameTextField = new TextField();
+		//<accessibility-plugin-label>
+		lastNameTextField.setLabel("Search by name");
 		Icon searchIcon = VaadinIcon.SEARCH.create();
+		//<theme-editor-local-classname>
+		searchIcon.addClassName("owners-find-view-icon-1");
 		lastNameTextField.setPrefixComponent(searchIcon);
 		FormLayout form = new FormLayout(lastNameTextField);
 
@@ -79,7 +83,7 @@ public class OwnersFindView extends VerticalLayout {
 		lastNameTextField.setValueChangeMode(ValueChangeMode.EAGER);
 
 		HorizontalLayout formContainer =
-				new HorizontalLayout(form, findOwnerIcon, addOwnerButton);
+				new HorizontalLayout(form, findOwnerButton, addOwnerButton);
 		formContainer.setAlignItems(Alignment.END);
 		formContainer.setPadding(false);
 

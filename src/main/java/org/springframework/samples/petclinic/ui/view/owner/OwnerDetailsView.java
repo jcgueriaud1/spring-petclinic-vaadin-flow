@@ -57,11 +57,6 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
         TextField telephoneTextField = new TextField();
         binder.bind(telephoneTextField, Owner::getTelephone, null);
 
-		nameTextField.setEnabled(false);
-		addressTextField.setEnabled(false);
-		cityTextField.setEnabled(false);
-		telephoneTextField.setEnabled(false);
-
         FormLayout ownerForm = new FormLayout();
         FormUtil.singleColumn(ownerForm);
         ownerForm.addFormItem(nameTextField, getTranslation("name"));

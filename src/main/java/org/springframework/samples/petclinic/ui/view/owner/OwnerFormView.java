@@ -26,32 +26,24 @@ public abstract class OwnerFormView extends VerticalLayout {
 		TextField addressTextField = new TextField(getTranslation("address"));
 		TextField cityTextField = new TextField(getTranslation("city"));
 		TextField telephoneTextField = new TextField(getTranslation("telephone"));
-        binder.forField(firstNameTextField).asRequired().bind(Owner::getFirstName,
+        binder.forField(firstNameTextField).asRequired("First name is required").bind(Owner::getFirstName,
                 Owner::setFirstName);
-        binder.forField(lastNameTextField).asRequired().bind(Owner::getLastName,
+        binder.forField(lastNameTextField).asRequired("Last name is required").bind(Owner::getLastName,
                 Owner::setLastName);
-        binder.forField(addressTextField).asRequired().bind(Owner::getAddress, Owner::setAddress);
-        binder.forField(cityTextField).asRequired().bind(Owner::getCity, Owner::setCity);
+        binder.forField(addressTextField).asRequired("Address is required").bind(Owner::getAddress, Owner::setAddress);
+        binder.forField(cityTextField).asRequired("City is required").bind(Owner::getCity, Owner::setCity);
         binder.forField(telephoneTextField)
-                .asRequired()
+                .asRequired("Phone is required")
                 .withValidator(new RegexpValidator(getTranslation("telephoneError"), "\\d{1,10}"))
                 .bind(Owner::getTelephone, Owner::setTelephone);
 
-		VerticalLayout ownerFormCol1 = new VerticalLayout();
-		ownerFormCol1.setSpacing(false);
-		ownerFormCol1.setPadding(false);
-        ownerFormCol1.add(firstNameTextField, addressTextField, telephoneTextField);
-
-		VerticalLayout ownerFormCol2 = new VerticalLayout();
-		ownerFormCol2.setSpacing(false);
-		ownerFormCol2.setPadding(false);
-		ownerFormCol2.add(lastNameTextField, cityTextField);
-
+		telephoneTextField.setHelperText("Telephone format is only digits without space or separator (ex. 3582303039)");
         Button updateOwnerButton = new Button(actionButtonLabel());
         updateOwnerButton.addClickListener(this::actionButtonListener);
 
-		HorizontalLayout horizontalLayout = new HorizontalLayout(ownerFormCol1, ownerFormCol2);
-		add(new H2(getTranslation("owner")), horizontalLayout, updateOwnerButton);
+		FormLayout formLayout = new FormLayout(firstNameTextField, lastNameTextField, addressTextField, cityTextField, telephoneTextField);
+
+		add(new H2(getTranslation("owner")), formLayout, updateOwnerButton);
 
         firstNameTextField.focus();
     }
