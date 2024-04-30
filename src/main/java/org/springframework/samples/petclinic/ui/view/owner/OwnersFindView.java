@@ -19,11 +19,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 
-@Route(value = "owners/find", layout = MainContentLayout.class)
+@Menu(title = "findOwners", icon = "vaadin:search")
+@Route(value = "owners/find")
 public class OwnersFindView extends VerticalLayout {
 
 	private final Grid<Owner> ownersGrid;
@@ -61,9 +63,9 @@ public class OwnersFindView extends VerticalLayout {
 		ownersGrid.addColumn(owner -> owner.getPets().stream().map(Pet::toString)
 				.collect(Collectors.joining(", ")))
 				.setHeader(getTranslation("pets"));
-		
+
 		updateGrid(presenter);
-		
+
 		lastNameTextField.setValueChangeMode(ValueChangeMode.EAGER);
 		lastNameTextField.addValueChangeListener(e -> updateGrid(presenter));
 		findOwnerButton.addClickListener(e -> updateGrid(presenter));

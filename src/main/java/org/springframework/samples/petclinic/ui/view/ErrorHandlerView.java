@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-@Route(layout = MainContentLayout.class)
+@Route
 public class ErrorHandlerView extends VerticalLayout implements HasErrorParameter<Exception> {
 
 	private final NativeLabel errorLabel;
@@ -27,14 +27,14 @@ public class ErrorHandlerView extends VerticalLayout implements HasErrorParamete
 		H3 message = new H3(getTranslation("somethingHappened"));
 		errorLabel = new NativeLabel();
 		text = new Pre();
-		
+
 		add(image, message, errorLabel, text);
 
 		text.setWidth("80em");
 		text.setHeight("400px");
 		text.getStyle().set("flex", "1 1 auto");
 		text.getStyle().setOverflow(Overflow.SCROLL);
-		
+
 		setSizeFull();
 		setJustifyContentMode(JustifyContentMode.CENTER);
 		setDefaultHorizontalComponentAlignment(Alignment.CENTER);
