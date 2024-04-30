@@ -4,16 +4,18 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.RegexpValidator;
+import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.RouteParameters;
 import org.springframework.samples.petclinic.backend.owner.Owner;
 import org.springframework.samples.petclinic.ui.util.FormUtil;
 
-public abstract class OwnerFormView extends VerticalLayout {
+public abstract class OwnerFormView extends VerticalLayout implements HasDynamicTitle {
 
     protected final Binder<Owner> binder = new Binder<>(Owner.class);
 
@@ -52,7 +54,7 @@ public abstract class OwnerFormView extends VerticalLayout {
         Button updateOwnerButton = new Button(actionButtonLabel());
         updateOwnerButton.addClickListener(this::actionButtonListener);
 
-        add(new H2(getTranslation("owner")), ownerForm, updateOwnerButton);
+        add(new H1(getTranslation("owner")), ownerForm, updateOwnerButton);
 
         firstNameTextField.focus();
     }

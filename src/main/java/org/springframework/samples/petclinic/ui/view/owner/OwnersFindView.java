@@ -12,6 +12,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.dataview.GridLazyDataView;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -19,12 +20,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.HasDynamicTitle;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 
 @Route(value = "owners/find", layout = MainContentLayout.class)
-public class OwnersFindView extends VerticalLayout {
+public class OwnersFindView extends VerticalLayout implements HasDynamicTitle {
 
 	private final Grid<Owner> ownersGrid;
 
@@ -35,7 +38,7 @@ public class OwnersFindView extends VerticalLayout {
 
 		setSizeFull();
 
-		H2 title = new H2(getTranslation("findOwners"));
+		H1 title = new H1(getTranslation("findOwners"));
 
 		lastNameTextField = new TextField(getTranslation("lastName"));
 		FormLayout form = new FormLayout(lastNameTextField);
@@ -61,9 +64,9 @@ public class OwnersFindView extends VerticalLayout {
 		ownersGrid.addColumn(owner -> owner.getPets().stream().map(Pet::toString)
 				.collect(Collectors.joining(", ")))
 				.setHeader(getTranslation("pets"));
-		
+
 		updateGrid(presenter);
-		
+
 		lastNameTextField.setValueChangeMode(ValueChangeMode.EAGER);
 		lastNameTextField.addValueChangeListener(e -> updateGrid(presenter));
 		findOwnerButton.addClickListener(e -> updateGrid(presenter));
@@ -91,4 +94,9 @@ public class OwnersFindView extends VerticalLayout {
 			query -> presenter.getCount());
 	}
 
+
+	@Override
+	public String getPageTitle() {
+		return getTranslation("findOwners") + " " + getTranslation("websiteName");
+	}
 }

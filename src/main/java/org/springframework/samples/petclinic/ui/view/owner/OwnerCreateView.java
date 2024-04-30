@@ -39,4 +39,8 @@ public class OwnerCreateView extends OwnerFormView implements BeforeEnterObserve
         presenter.initModel(null);
     }
 
+	@Override
+	public String getPageTitle() {
+		return getTranslation("owner") + " " + getTranslation("websiteName");
+	}
 }

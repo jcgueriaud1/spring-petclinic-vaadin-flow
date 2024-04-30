@@ -31,7 +31,15 @@ class CacheConfiguration {
 	@Bean
 	public JCacheManagerCustomizer petclinicCacheConfigurationCustomizer() {
 		return cm -> {
-			cm.createCache("vets", cacheConfiguration());
+			boolean cacheExists = false;
+			for (String cacheName : cm.getCacheNames()) {
+				if (cacheName.equals("vets")) {
+					cacheExists = true;
+				}
+			}
+			if (!cacheExists) {
+				cm.createCache("vets", cacheConfiguration());
+			}
 		};
 	}
 

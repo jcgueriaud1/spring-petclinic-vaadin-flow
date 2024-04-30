@@ -40,4 +40,8 @@ public class OwnerEditView extends OwnerFormView implements BeforeEnterObserver 
         }
     }
 
+	@Override
+	public String getPageTitle() {
+		return getTranslation("owner") + " " + getTranslation("websiteName");
+	}
 }

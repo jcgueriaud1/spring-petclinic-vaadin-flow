@@ -8,6 +8,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -17,6 +18,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParam;
 import com.vaadin.flow.router.RouteParameters;
@@ -28,7 +30,7 @@ import org.springframework.samples.petclinic.ui.view.MainContentLayout;
 import org.springframework.samples.petclinic.ui.view.visit.VisitCreateView;
 
 @Route(value = "owners/:ownerId([0-9]+)", layout = MainContentLayout.class)
-public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObserver {
+public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObserver, HasDynamicTitle {
 
 	private static final String OWNER_ID_ROUTE_PARAM = "ownerId";
 
@@ -41,7 +43,7 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
 		presenter.setView(this);
 
-        H2 title = new H2(getTranslation("ownerInformation"));
+        H1 title = new H1(getTranslation("ownerInformation"));
 
 		TextField nameTextField = new TextField();
 		binder.bind(nameTextField, owner -> owner.getFirstName() + " " + owner.getLastName(), null);
@@ -184,4 +186,8 @@ public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObser
 
 	}
 
+	@Override
+	public String getPageTitle() {
+		return getTranslation("ownerInformation") + " " + getTranslation("websiteName");
+	}
 }

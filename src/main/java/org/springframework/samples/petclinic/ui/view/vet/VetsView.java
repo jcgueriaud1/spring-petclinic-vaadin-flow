@@ -9,12 +9,14 @@ import org.springframework.samples.petclinic.ui.view.MainContentLayout;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 
 @Route(value = "vets", layout = MainContentLayout.class)
-public class VetsView extends VerticalLayout {
+public class VetsView extends VerticalLayout implements HasDynamicTitle {
 
     private final VetsPresenter presenter;
 
@@ -27,7 +29,7 @@ public class VetsView extends VerticalLayout {
 
         setSizeFull();
 
-        H2 title = new H2(getTranslation("veterinarians"));
+        H1 title = new H1(getTranslation("veterinarians"));
         vetsGrid = new Grid<>();
         vetsGrid.addColumn(vet -> vet.getFirstName() + " " + vet.getLastName())
                 .setHeader(getTranslation("name"));
@@ -49,4 +51,8 @@ public class VetsView extends VerticalLayout {
         presenter.loadVets();
     }
 
+	@Override
+	public String getPageTitle() {
+		return getTranslation("veterinarians") + " " + getTranslation("websiteName");
+	}
 }

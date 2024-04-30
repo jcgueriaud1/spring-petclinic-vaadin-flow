@@ -21,7 +21,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <vaadin.version>24.3.3</vaadin.version>
+    <vaadin.version>24.4.0.alpha15</vaadin.version>
   </properties>
 
   <dependencyManagement>
@@ -106,21 +106,33 @@
 		<!-- Replace artifactId with vaadin-core to use only free components -->
 		<artifactId>vaadin-core</artifactId>
 	</dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>copilot</artifactId>
+      <version>24.4-SNAPSHOT</version>
+    </dependency>
 	<dependency>
 		<groupId>com.vaadin</groupId>
 		<artifactId>vaadin-spring-boot-starter</artifactId>
 	</dependency>
     <dependency>
-      <groupId>org.parttio</groupId>
-      <artifactId>accessibility-checker-for-vaadin</artifactId>
-      <version>0.0.16</version>
+      <groupId>com.microsoft.playwright</groupId>
+      <artifactId>playwright</artifactId>
+      <version>1.41.0</version> <!-- Check the latest version via https://playwright.dev -->
+      <scope>test</scope>
     </dependency>
-	<dependency>
-	    <groupId>com.vaadin</groupId>
-	    <artifactId>vaadin-testbench</artifactId>
-	    <scope>test</scope>
-	</dependency>
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.deque.html.axe-core/playwright -->
+    <dependency>
+      <groupId>com.deque.html.axe-core</groupId>
+      <artifactId>playwright</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -199,17 +211,15 @@
 
   <repositories>
     <repository>
-      <id>spring-snapshots</id>
-      <name>Spring Snapshots</name>
-      <url>https://repo.spring.io/snapshot</url>
+      <id>vaadin-prereleases</id>
+      <url>https://maven.vaadin.com/vaadin-prereleases</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
     </repository>
     <repository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
+      <id>Vaadin Directory</id>
+      <url>https://maven.vaadin.com/vaadin-addons</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -218,23 +228,13 @@
 
   <pluginRepositories>
     <pluginRepository>
-      <id>spring-snapshots</id>
-      <name>Spring Snapshots</name>
-      <url>https://repo.spring.io/snapshot</url>
+      <id>vaadin-prereleases</id>
+      <url>https://maven.vaadin.com/vaadin-prereleases</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
     </pluginRepository>
-    <pluginRepository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
   </pluginRepositories>
-
   <profiles>
     <profile>
             <!-- Production mode is activated using -Pproduction -->
@@ -244,7 +244,6 @@
                     <plugin>
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>${vaadin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
