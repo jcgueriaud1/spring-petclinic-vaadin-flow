@@ -34,9 +34,9 @@ export default function MainLayout() {
               </HorizontalLayout>
           </header>
           <main>
-          <Suspense>
-              <Outlet/>
-          </Suspense>
+              <Suspense>
+                  <div style={{display: 'contents'}}><Outlet/></div>
+              </Suspense>
           </main>
           <footer className="footer">
               <img src="./images/vaadin.png" alt="Vaadin"/>
