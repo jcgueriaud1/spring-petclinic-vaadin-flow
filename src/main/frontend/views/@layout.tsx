@@ -4,6 +4,7 @@ import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import '@vaadin/icons';
+import {translate} from "@vaadin/hilla-react-i18n";
 
 const defaultTitle = document.title;
 
@@ -27,7 +28,7 @@ export default function MainLayout() {
                           <SideNavItem path={to} key={to}>
                               {icon ?
                                   <Icon icon={icon} slot="prefix"></Icon> : <></>}
-                              {title}
+                              {translate(title!)}
                           </SideNavItem>
                       ))}
                   </SideNav>

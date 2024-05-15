@@ -25,7 +25,6 @@
     "date-fns": "2.29.3",
     "line-awesome": "1.3.0",
     "lit": "3.1.3",
-    "proj4": "2.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.23.0"
@@ -82,7 +81,6 @@
     "@vaadin/hilla-react-form": "$@vaadin/hilla-react-form",
     "@vaadin/hilla-react-signals": "$@vaadin/hilla-react-signals",
     "date-fns": "$date-fns",
-    "proj4": "$proj4",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
     "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
@@ -114,7 +112,6 @@
       "date-fns": "2.29.3",
       "line-awesome": "1.3.0",
       "lit": "3.1.3",
-      "proj4": "2.11.0",
       "react": "18.2.0",
       "react-dom": "18.2.0",
       "react-router-dom": "6.23.0"
@@ -148,6 +145,6 @@
       "workbox-core": "7.1.0",
       "workbox-precaching": "7.1.0"
     },
-    "hash": "7f0428a9cbfb603c83c9781778bedead00d52c7a056a46d731374f93acf62f61"
+    "hash": "828471e7855659c60bbcd7c199818afa9771803f902021700d94012f1a058ba1"
   }
 }
