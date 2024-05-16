@@ -55,7 +55,7 @@
 }
 
 [slot="navbar"] a.navbar-brand {
-  background: url("../../images/spring-logo-dataflow.png") -1px -1px no-repeat;
+  background: url("./images/spring-logo-dataflow.png") -1px -1px no-repeat;
   margin: 12px 0 6px;
   width: 229px;
   height: 46px;
@@ -68,7 +68,7 @@
   display: block;
   width: 229px;
   height: 46px;
-  background: url("../../images/spring-logo-dataflow.png") -1px -48px no-repeat;
+  background: url("./images/spring-logo-dataflow.png") -1px -48px no-repeat;
   opacity: 0;
 }
 
