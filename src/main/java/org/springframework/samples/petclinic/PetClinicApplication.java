@@ -16,13 +16,19 @@
 
 package org.springframework.samples.petclinic;
 
+import java.util.List;
+import java.util.Locale;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNullApi;
 
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.i18n.DefaultI18NProvider;
+import com.vaadin.flow.i18n.I18NProvider;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
@@ -38,5 +44,8 @@ public class PetClinicApplication extends SpringBootServletInitializer implement
     public static void main(String[] args) {
         SpringApplication.run(PetClinicApplication.class, args);
     }
-
+	@Bean
+	public I18NProvider myProvider() {
+		return new DefaultI18NProvider(List.of(Locale.forLanguageTag("en"), Locale.forLanguageTag("de"), Locale.forLanguageTag("es")));
+	}
 }
