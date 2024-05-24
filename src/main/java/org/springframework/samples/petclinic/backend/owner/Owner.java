@@ -31,6 +31,8 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.backend.model.Person;
 
+import com.vaadin.hilla.Nonnull;
+
 /**
  * Simple JavaBean domain object representing an owner.
  *
@@ -45,14 +47,17 @@ public class Owner extends Person {
 
 	@Column(name = "address")
 	@NotEmpty
+	@Nonnull
 	private String address;
 
 	@Column(name = "city")
 	@NotEmpty
+	@Nonnull
 	private String city;
 
 	@Column(name = "telephone")
 	@NotEmpty
+	@Nonnull
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
 
@@ -94,7 +99,7 @@ public class Owner extends Person {
 		this.pets = pets;
 	}
 
-	public List<Pet> getPets() {
+	public @Nonnull List<@Nonnull Pet> getPets() {
 		List<Pet> sortedPets = new ArrayList<>(getPetsInternal());
 		PropertyComparator.sort(sortedPets, new MutableSortDefinition("name", true, true));
 		return Collections.unmodifiableList(sortedPets);
@@ -109,7 +114,7 @@ public class Owner extends Person {
 
 	/**
 	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * 
+	 *
 	 * @param name to test
 	 * @return true if pet name is already in use
 	 */
@@ -119,7 +124,7 @@ public class Owner extends Person {
 
 	/**
 	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * 
+	 *
 	 * @param name to test
 	 * @return true if pet name is already in use
 	 */

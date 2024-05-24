@@ -18,7 +18,7 @@ public class PetCreatePresenter extends PetFormPresenter<PetCreateView> {
 
     @Override
     public void initModel(Integer ownerId, Integer petId) {
-        Owner owner = ownerRepository.findById(ownerId);
+        Owner owner = ownerRepository.findById(ownerId).get();
 
         model = new PetFormDto(ownerId, owner.getFirstName() + " " + owner.getLastName());
 
@@ -32,7 +32,7 @@ public class PetCreatePresenter extends PetFormPresenter<PetCreateView> {
         pet.setBirthDate(model.getPetBirthDate());
         pet.setType(model.getPetType());
 
-        Owner owner = ownerRepository.findById(model.getOwnerId());
+        Owner owner = ownerRepository.findById(model.getOwnerId()).get();
         owner.addPet(pet);
 
         petRepository.save(pet);

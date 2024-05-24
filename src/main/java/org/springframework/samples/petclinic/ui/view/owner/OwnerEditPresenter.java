@@ -14,7 +14,7 @@ public class OwnerEditPresenter extends OwnerFormPresenter<OwnerEditView> {
 
     @Override
     public void initModel(Integer ownerId) {
-        model = ownerRepository.findById(ownerId);
+        model = ownerRepository.findById(ownerId).get();
         view.init(model);
     }
 

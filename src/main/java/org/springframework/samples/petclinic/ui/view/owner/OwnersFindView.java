@@ -25,8 +25,9 @@ import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 
 @Menu(title = "findOwners", icon = "vaadin:search")
-@Route(value = "owners/find")
+@Route(value = "flow/owners/find")
 public class OwnersFindView extends VerticalLayout {
+
 
 	private final Grid<Owner> ownersGrid;
 
@@ -66,8 +67,6 @@ public class OwnersFindView extends VerticalLayout {
 
 		updateGrid(presenter);
 
-		lastNameTextField.setValueChangeMode(ValueChangeMode.EAGER);
-		lastNameTextField.addValueChangeListener(e -> updateGrid(presenter));
 		findOwnerButton.addClickListener(e -> updateGrid(presenter));
 
 		HorizontalLayout formContainer =

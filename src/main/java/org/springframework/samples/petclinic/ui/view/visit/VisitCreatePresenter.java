@@ -54,7 +54,7 @@ public class VisitCreatePresenter {
     public void initModel(Integer ownerId, Integer petId) {
         model = new VisitCreateDto(ownerId, petId);
 
-        final Owner owner = ownerRepository.findById(ownerId);
+        final Owner owner = ownerRepository.findById(ownerId).get();
         model.setPetOwner(owner.getFirstName() + " " + owner.getLastName());
 
         final Pet pet = petRepository.findById(petId);

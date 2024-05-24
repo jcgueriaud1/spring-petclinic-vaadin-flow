@@ -8,7 +8,7 @@ import {translate} from "@vaadin/hilla-react-i18n";
 
 export const config: ViewConfig = {
   menu: { order: 0, icon: 'vaadin:home' },
-  title: 'Home',
+  title: 'home',
 };
 
 export default function HelloWorldView() {
@@ -19,7 +19,7 @@ export default function HelloWorldView() {
           <VerticalLayout theme="padding spacing"
                           className="w-full items-center justify-center">
               <h2>{translate('welcome')}</h2>
-              <img src="./images/pets.png" alt="Pets"/>
+              <img src="./images/pets.png" alt={translate('pets')}/>
           </VerticalLayout>
       </>
   );

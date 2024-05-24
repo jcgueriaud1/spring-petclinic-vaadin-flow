@@ -35,7 +35,7 @@ public class OwnerDetailsPresenter {
             return;
         }
 
-        owner = ownerRepository.findById(ownerId);
+        owner = ownerRepository.findById(ownerId).get();
         for (Pet pet : owner.getPets()) {
             visitRepository.findByPetId(pet.getId()).forEach(pet::addVisit);
         }
