@@ -47,7 +47,7 @@ async function fetchOwners(params: {
 
 
 const editRenderer = (person: OwnerEnhanced) => (
-    <NavLink to={"/flow/owners/" + person.id}>{person.firstName} {person.lastName}</NavLink>
+    <NavLink to={"/owners/" + person.id}>{person.firstName} {person.lastName}</NavLink>
 );
 
 const petsRenderer = (owner: OwnerEnhanced) => (
