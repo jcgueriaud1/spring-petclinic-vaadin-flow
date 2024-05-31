@@ -26,7 +26,7 @@ import org.springframework.samples.petclinic.ui.util.FormUtil;
 import org.springframework.samples.petclinic.ui.view.MainContentLayout;
 import org.springframework.samples.petclinic.ui.view.visit.VisitCreateView;
 
-@Route(value = "owners/:ownerId([0-9]+)", layout = MainContentLayout.class)
+@Route(value = "flow/owners/:ownerId([0-9]+)", layout = MainContentLayout.class)
 public class OwnerDetailsView extends VerticalLayout implements BeforeEnterObserver {
 
     private static final String OWNER_ID_ROUTE_PARAM = "ownerId";

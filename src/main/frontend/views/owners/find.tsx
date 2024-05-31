@@ -6,10 +6,7 @@ import {
     GridDataProviderParams, GridSorterDefinition,
     VerticalLayout
 } from "@vaadin/react-components";
-import Vet
-    from "../../generated/org/springframework/samples/petclinic/backend/vet/Vet";
-import {useEffect, useMemo} from "react";
-import { findAllVets } from '../../generated/VetService';
+import {useEffect, useMemo, useState} from "react";
 import {translate} from "@vaadin/hilla-react-i18n";
 import {
     countByLastName,
@@ -50,7 +47,7 @@ async function fetchOwners(params: {
 
 
 const editRenderer = (person: OwnerEnhanced) => (
-    <NavLink to={"/owners/" + person.id}>{person.firstName} {person.lastName}</NavLink>
+    <NavLink to={"/flow/owners/" + person.id}>{person.firstName} {person.lastName}</NavLink>
 );
 
 const petsRenderer = (owner: OwnerEnhanced) => (
@@ -61,6 +58,7 @@ const petsRenderer = (owner: OwnerEnhanced) => (
 
 export default function FindOwnersView() {
     const searchTerm = useSignal('');
+    const searchFieldValue = useSignal('');
     const navigate = useNavigate();
 
 
@@ -101,10 +99,11 @@ export default function FindOwnersView() {
               <HorizontalLayout  theme="spacing" className="items-baseline">
                   <TextField label={translate('lastName')}
                              onValueChanged={(e) => {
-                      searchTerm.value = e.detail.value.trim();
+                                 searchFieldValue.value = e.detail.value.trim();
                   }}></TextField>
 
                   <Button theme="primary" onClick={(e) => {
+                      searchTerm.value = searchFieldValue.value;
 }}>{translate('findOwner')}</Button>
                   <Button onClick={(e) => {
                       navigate('/owners/new')

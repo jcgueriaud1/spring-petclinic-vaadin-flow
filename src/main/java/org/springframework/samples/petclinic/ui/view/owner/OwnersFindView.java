@@ -24,7 +24,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 
-@Menu(title = "findOwners", icon = "vaadin:search")
 @Route(value = "flow/owners/find")
 public class OwnersFindView extends VerticalLayout {
 

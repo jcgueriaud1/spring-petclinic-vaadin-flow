@@ -8,7 +8,7 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import org.springframework.samples.petclinic.ui.view.MainContentLayout;
 
-@Route(value = "owners/new", layout = MainContentLayout.class)
+@Route(value = "flow/owners/new", layout = MainContentLayout.class)
 public class OwnerCreateView extends OwnerFormView implements BeforeEnterObserver {
 
     private final OwnerCreatePresenter presenter;
