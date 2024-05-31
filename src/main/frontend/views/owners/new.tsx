@@ -15,8 +15,7 @@ import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 
 
 export const config: ViewConfig = {
-    menu: { order: 1, icon: 'vaadin:search' },
-    title: 'findOwners',
+    menu: { exclude: true}
 };
 
 export default function NewOwnerView() {
