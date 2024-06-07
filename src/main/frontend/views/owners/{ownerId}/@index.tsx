@@ -82,9 +82,9 @@ export default function ViewOwnerView() {
                     <VerticalLayout theme="spacing" className="pet-container">
                         <h2>{translate('petsAndVisits')}</h2>
 
-                        {(Array.from(model.pets)) ?
+                        {
                             Array.from(model.pets, (pet) => (
-                            <FormLayout
+                            <FormLayout key={`${pet.value!.id}`}
                                 responsiveSteps={[{minWidth: '0', columns: 1},
                                     {minWidth: '600px', columns: 1}]
 
@@ -106,7 +106,7 @@ export default function ViewOwnerView() {
                                         readonly {...field(pet.model.type)}></TextField>
                                 </FormItem>
                             </FormLayout>
-                            )): <VerticalLayout></VerticalLayout>
+                            ))
                         }
                     </VerticalLayout>
                 </FormLayout>
