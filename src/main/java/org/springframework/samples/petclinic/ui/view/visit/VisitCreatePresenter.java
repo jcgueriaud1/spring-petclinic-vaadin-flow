@@ -57,7 +57,7 @@ public class VisitCreatePresenter {
         final Owner owner = ownerRepository.findById(ownerId).get();
         model.setPetOwner(owner.getFirstName() + " " + owner.getLastName());
 
-        final Pet pet = petRepository.findById(petId);
+        final Pet pet = petRepository.findById(petId).get();
         model.setPetName(pet.getName());
         model.setPetBirthDate(pet.getBirthDate());
         model.setPetType(pet.getType().getName());

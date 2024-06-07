@@ -1,4 +1,5 @@
 import {
+    DatePicker,
     FormItem,
     FormLayout,
     TextField,
@@ -13,6 +14,7 @@ import {OwnerService} from "../../../generated/endpoints";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
+import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 
 export const config: ViewConfig = {
     menu: { exclude: true}
@@ -38,22 +40,25 @@ export default function ViewOwnerView() {
             <VerticalLayout theme="padding spacing"
                             className="w-full justify-center">
                 <FormLayout
-                    responsiveSteps={[{ minWidth: '0', columns: 1 },
-                        { minWidth: '600px', columns: 1 }]
+                    responsiveSteps={[{minWidth: '0', columns: 1},
+                        {minWidth: '600px', columns: 1}]
 
                     }>
                     <h2>{translate('ownerInformation')}</h2>
                     <FormItem>
                         <label slot="label">{translate('firstName')}</label>
-                        <TextField readonly {...field(model.firstName)}></TextField>
+                        <TextField
+                            readonly {...field(model.firstName)}></TextField>
                     </FormItem>
                     <FormItem>
                         <label slot="label">{translate('lastName')}</label>
-                        <TextField readonly {...field(model.lastName)}></TextField>
+                        <TextField
+                            readonly {...field(model.lastName)}></TextField>
                     </FormItem>
                     <FormItem>
                         <label slot="label">{translate('address')}</label>
-                        <TextField readonly {...field(model.address)}></TextField>
+                        <TextField
+                            readonly {...field(model.address)}></TextField>
                     </FormItem>
                     <FormItem>
                         <label slot="label">{translate('city')}</label>
@@ -61,16 +66,49 @@ export default function ViewOwnerView() {
                     </FormItem>
                     <FormItem>
                         <label slot="label">{translate('telephone')}</label>
-                        <TextField readonly {...field(model.telephone)}></TextField>
+                        <TextField
+                            readonly {...field(model.telephone)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <Button onClick={(e) => {
-                            navigate('/owners/'+ownerId+'/edit')
-                        }}>{translate('editOwner')}</Button>
-                        <Button  onClick={(e) => {
-                            navigate('/owners/'+ownerId+'/pets/new')
-                        }}>{translate('addNewPet')}</Button>
+                        <HorizontalLayout theme="spacing">
+                            <Button onClick={(e) => {
+                                navigate('/owners/' + ownerId + '/edit')
+                            }}>{translate('editOwner')}</Button>
+                            <Button onClick={(e) => {
+                                navigate('/owners/' + ownerId + '/pets/new')
+                            }}>{translate('addNewPet')}</Button>
+                        </HorizontalLayout>
                     </FormItem>
+                    <VerticalLayout theme="spacing" className="pet-container">
+                        <h2>{translate('petsAndVisits')}</h2>
+
+                        {(Array.from(model.pets)) ?
+                            Array.from(model.pets, (pet) => (
+                            <FormLayout
+                                responsiveSteps={[{minWidth: '0', columns: 1},
+                                    {minWidth: '600px', columns: 1}]
+
+                                }>
+                                <hr/>
+                                <FormItem>
+                                    <label slot="label">{translate('name')}</label>
+                                    <TextField
+                                        readonly {...field(pet.model.name)}></TextField>
+                                </FormItem>
+                                <FormItem>
+                                    <label slot="label">{translate('birthDate')}</label>
+                                    <DatePicker
+                                        readonly {...field(pet.model.birthDate)}></DatePicker>
+                                </FormItem>
+                                <FormItem>
+                                    <label slot="label">{translate('type')}</label>
+                                    <TextField
+                                        readonly {...field(pet.model.type)}></TextField>
+                                </FormItem>
+                            </FormLayout>
+                            )): <VerticalLayout></VerticalLayout>
+                        }
+                    </VerticalLayout>
                 </FormLayout>
             </VerticalLayout>
         </>

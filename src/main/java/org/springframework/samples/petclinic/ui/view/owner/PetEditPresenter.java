@@ -18,7 +18,7 @@ public class PetEditPresenter extends PetFormPresenter<PetEditView> {
     @Override
     public void initModel(Integer ownerId, Integer petId) {
         Owner owner = ownerRepository.findById(ownerId).get();
-        Pet pet = petRepository.findById(petId);
+        Pet pet = petRepository.findById(petId).get();
 
         model = new PetFormDto(ownerId, owner.getFirstName() + " " + owner.getLastName());
         model.setPetId(petId);
@@ -31,7 +31,7 @@ public class PetEditPresenter extends PetFormPresenter<PetEditView> {
 
     @Override
     public void save() {
-        Pet pet = petRepository.findById(model.getPetId());
+        Pet pet = petRepository.findById(model.getPetId()).get();
         pet.setName(model.getPetName());
         pet.setBirthDate(model.getPetBirthDate());
         pet.setType(model.getPetType());
