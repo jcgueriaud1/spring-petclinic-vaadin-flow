@@ -8,7 +8,7 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import org.springframework.samples.petclinic.ui.view.MainContentLayout;
 
-@Route(value = "owners/:ownerId([0-9]+)/edit", layout = MainContentLayout.class)
+@Route(value = "flow/owners/:ownerId([0-9]+)/edit", layout = MainContentLayout.class)
 public class OwnerEditView extends OwnerFormView implements BeforeEnterObserver {
 
     private final OwnerEditPresenter presenter;

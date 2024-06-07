@@ -14,7 +14,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 
-@Menu(title = "Flow veterinarians", icon = "vaadin:list")
 @Route(value = "flowvets")
 public class VetsView extends VerticalLayout {
 

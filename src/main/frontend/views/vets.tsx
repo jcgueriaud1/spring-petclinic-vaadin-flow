@@ -8,7 +8,7 @@ import { findAllVets } from '../generated/VetService';
 import {translate} from "@vaadin/hilla-react-i18n";
 
 export const config: ViewConfig = {
-  menu: { order: 0, icon: 'vaadin:list' },
+  menu: { order: 2, icon: 'vaadin:list' },
   title: 'veterinarians',
 };
 

@@ -7,11 +7,16 @@ import {
 import {translate} from "@vaadin/hilla-react-i18n";
 import {useForm} from "@vaadin/hilla-react-form";
 import OwnerModel
-    from "../../generated/org/springframework/samples/petclinic/backend/owner/OwnerModel";
+    from "../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerModel";
 import {Button} from "@vaadin/react-components/Button.js";
-import {OwnerService} from "../../generated/endpoints";
+import {OwnerService} from "../../../generated/endpoints";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
+import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
+
+export const config: ViewConfig = {
+    menu: { exclude: true}
+};
 
 export default function ViewOwnerView() {
     const { ownerId } = useParams();
@@ -20,7 +25,7 @@ export default function ViewOwnerView() {
         onSubmit: async (owner) => {
             const savedOwner = await OwnerService.save(owner);
             if (savedOwner) {
-                navigate('/flow/owners/' + savedOwner.id);
+                navigate('/owners/' + savedOwner.id);
             }
         }
     });
