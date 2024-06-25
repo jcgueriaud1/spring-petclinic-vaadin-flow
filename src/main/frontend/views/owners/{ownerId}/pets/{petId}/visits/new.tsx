@@ -40,7 +40,7 @@ export default function NewVisitView() {
         VisitService.get(Number(ownerId), Number(petId)).then(read);
     }, []);
     const navigate = useNavigate();
-  const { read, model, submit,  field } = useForm(VisitCreateRecordModel, {
+  const { value, read, model, submit,  field } = useForm(VisitCreateRecordModel, {
       onSubmit: async (visitCreateDto) => {
           const savedVisit = await VisitService.saveVisit(visitCreateDto);
           if (savedVisit) {
@@ -86,13 +86,10 @@ export default function NewVisitView() {
                       <Button onClick={submit}>{translate('addVisit')}</Button>
                   </FormItem>
               </FormLayout>
-              {(model.previousVisits) ?
-                  <Grid items={Array.from(model.previousVisits)} allRowsVisible>
-                      <GridColumn path="value.date" header={translate('visitDate')} />
-                      <GridColumn path="value.description" header={translate('description')} />
-                  </Grid>
-                  : <VerticalLayout></VerticalLayout>
-              }
+              <Grid items={value.previousVisits} allRowsVisible>
+                  <GridColumn path="value.date" header={translate('visitDate')} />
+                  <GridColumn path="value.description" header={translate('description')} />
+              </Grid>
 
           </VerticalLayout>
       </>
