@@ -1,7 +1,8 @@
 import {
+    ComboBox,
     DatePicker,
     FormItem,
-    FormLayout,
+    FormLayout, Grid, GridColumn,
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
@@ -33,7 +34,7 @@ export default function ViewOwnerView() {
     });
 
     useEffect(() => {
-        OwnerService.get(Number(ownerId)).then(read);
+        OwnerService.findOwner(Number(ownerId)).then(read);
     }, [ownerId])
     return (
         <>
@@ -84,12 +85,12 @@ export default function ViewOwnerView() {
 
                         {
                             Array.from(model.pets, (pet) => (
-                            <FormLayout key={`${pet.value!.id}`}
+                                <HorizontalLayout key={`${pet.value!.id}`} className="pet-row" theme="spacing">
+                            <FormLayout
                                 responsiveSteps={[{minWidth: '0', columns: 1},
                                     {minWidth: '600px', columns: 1}]
 
                                 }>
-                                <hr/>
                                 <FormItem>
                                     <label slot="label">{translate('name')}</label>
                                     <TextField
@@ -102,10 +103,25 @@ export default function ViewOwnerView() {
                                 </FormItem>
                                 <FormItem>
                                     <label slot="label">{translate('type')}</label>
-                                    <TextField
-                                        readonly {...field(pet.model.type)}></TextField>
+                                    <ComboBox itemLabelPath="name"
+                                        readonly {...field(pet.model.type)}></ComboBox>
                                 </FormItem>
                             </FormLayout>
+                                    <VerticalLayout className="visits" theme="padding spacing">
+                                        <Grid items={Array.from(pet.model.visits)} allRowsVisible>
+                                            <GridColumn path="value.date" header={translate('visitDate')} />
+                                            <GridColumn path="value.description" header={translate('description')} />
+                                        </Grid>
+                                        <HorizontalLayout theme="spacing">
+                                            <Button onClick={(e) => {
+                                                navigate('/owners/' + ownerId + '/pets/'+pet.value!.id + '/edit')
+                                            }}>{translate('editPet')}</Button>
+                                            <Button onClick={(e) => {
+                                                navigate('/flow/owners/' + ownerId + '/pets/'+pet.value!.id+'/visits/new')
+                                            }}>{translate('addVisit')}</Button>
+                                        </HorizontalLayout>
+                                    </VerticalLayout>
+                                </HorizontalLayout>
                             ))
                         }
                     </VerticalLayout>

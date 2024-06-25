@@ -8,7 +8,7 @@ export const config: ViewConfig = {
   title: 'home',
 };
 
-export default function HelloWorldView() {
+export default function HomeView() {
   const name = useSignal('');
 
   return (

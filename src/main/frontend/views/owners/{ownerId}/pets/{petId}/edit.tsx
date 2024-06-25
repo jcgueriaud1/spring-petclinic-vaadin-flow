@@ -12,25 +12,26 @@ import {Button} from "@vaadin/react-components/Button.js";
 import {useNavigate, useParams} from "react-router-dom";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import PetModel
-    from "../../../../generated/org/springframework/samples/petclinic/backend/owner/PetModel";
-import {OwnerService, PetService} from "../../../../generated/endpoints";
+    from "../../../../../generated/org/springframework/samples/petclinic/backend/owner/PetModel";
+import {OwnerService, PetService} from "../../../../../generated/endpoints";
 import {useSignal} from "@vaadin/hilla-react-signals";
 import PetType
-    from "../../../../generated/org/springframework/samples/petclinic/backend/owner/PetType";
+    from "../../../../../generated/org/springframework/samples/petclinic/backend/owner/PetType";
 import {useEffect} from "react";
 import OwnerName
-    from "../../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerName";
+    from "../../../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerName";
 
 
 export const config: ViewConfig = {
     menu: { exclude: true}
 };
 
-export default function NewPetView() {
-    const { ownerId } = useParams();
+export default function EditPetView() {
+    const { ownerId, petId } = useParams();
     const items = useSignal<PetType[]>([]);
     const owner = useSignal<OwnerName | undefined>(undefined);
     useEffect(() => {
+        PetService.findPetById(Number(petId)).then(read);
         PetService.findPetTypes().then((data) => {
             items.value = data;
         });
@@ -41,9 +42,9 @@ export default function NewPetView() {
          );
     }, []);
     const navigate = useNavigate();
-  const { model, submit,  field } = useForm(PetModel, {
+  const { read, model, submit,  field } = useForm(PetModel, {
       onSubmit: async (pet) => {
-          const savedPet = await PetService.savePet(pet, Number(ownerId));
+          const savedPet = await PetService.update(pet);
           if (savedPet) {
               navigate('/owners/' + ownerId);
           }
@@ -82,7 +83,7 @@ export default function NewPetView() {
                   items={items.value}></ComboBox>
               </FormItem>
               <FormItem>
-                  <Button onClick={submit}>{translate('addPet')}</Button>
+                  <Button onClick={submit}>{translate('updatePet')}</Button>
               </FormItem>
           </FormLayout>
           </VerticalLayout>

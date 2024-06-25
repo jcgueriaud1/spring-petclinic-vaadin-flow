@@ -22,6 +22,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.samples.petclinic.backend.model.Person;
 import org.springframework.samples.petclinic.backend.vet.Vet;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,5 +85,7 @@ public interface OwnerRepository extends JpaRepository<Owner, Integer>, JpaSpeci
     @Query("SELECT owner FROM Owner owner")
     @Transactional(readOnly = true)
     Page<Owner> findAll(Pageable pageable);
+
+	Optional<OwnerName> findPersonById(@Param("id") Integer id);
 
 }

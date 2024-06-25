@@ -3,6 +3,9 @@ package org.springframework.samples.petclinic.ui.view.visit;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.samples.petclinic.backend.visit.Visit;
 
 public class VisitCreateDto {
@@ -19,8 +22,10 @@ public class VisitCreateDto {
 
     private String petOwner;
 
+	@NotNull
     private LocalDate visitDate;
 
+	@NotEmpty
     private String description;
 
     private List<Visit> previousVisits = new ArrayList<>();
@@ -30,7 +35,21 @@ public class VisitCreateDto {
         this.petId = petId;
     }
 
-    public Integer getOwnerId() {
+	public VisitCreateDto(Integer ownerId, Integer petId, String petName,
+						  LocalDate petBirthDate, String petType, String petOwner,
+						  LocalDate visitDate, String description, List<Visit> previousVisits) {
+		this.ownerId = ownerId;
+		this.petId = petId;
+		this.petName = petName;
+		this.petBirthDate = petBirthDate;
+		this.petType = petType;
+		this.petOwner = petOwner;
+		this.visitDate = visitDate;
+		this.description = description;
+		this.previousVisits = previousVisits;
+	}
+
+	public Integer getOwnerId() {
         return ownerId;
     }
 

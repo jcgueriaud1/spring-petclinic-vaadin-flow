@@ -13,6 +13,7 @@
  */
 package org.springframework.samples.petclinic.backend.owner;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
