@@ -11,8 +11,6 @@ import {useForm} from "@vaadin/hilla-react-form"
 import {Button} from "@vaadin/react-components/Button.js";
 import {useNavigate, useParams} from "react-router-dom";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
-import PetModel
-    from "../../../../../../generated/org/springframework/samples/petclinic/backend/owner/PetModel";
 import {
     OwnerService,
     PetService,
@@ -23,7 +21,7 @@ import PetType
     from "../../../../../../generated/org/springframework/samples/petclinic/backend/owner/PetType";
 import {useEffect} from "react";
 import VisitCreateRecordModel
-    from "../../../../../../generated/org/springframework/samples/petclinic/endpoint/VisitCreateRecordModel";
+    from "../../../../../../generated/org/springframework/samples/petclinic/endpoint/record/VisitCreateRecordModel";
 
 
 export const config: ViewConfig = {
@@ -41,11 +39,9 @@ export default function NewVisitView() {
     }, []);
     const navigate = useNavigate();
   const { value, read, model, submit,  field } = useForm(VisitCreateRecordModel, {
-      onSubmit: async (visitCreateDto) => {
-          const savedVisit = await VisitService.saveVisit(visitCreateDto);
-          if (savedVisit) {
-              navigate('/owners/' + ownerId);
-          }
+      onSubmit: async (visitCreateRecord) => {
+          await VisitService.saveVisit(visitCreateRecord);
+          navigate('/owners/' + ownerId);
       }
   });
 
@@ -87,8 +83,8 @@ export default function NewVisitView() {
                   </FormItem>
               </FormLayout>
               <Grid items={value.previousVisits} allRowsVisible>
-                  <GridColumn path="value.date" header={translate('visitDate')} />
-                  <GridColumn path="value.description" header={translate('description')} />
+                  <GridColumn path="date" header={translate('visitDate')} />
+                  <GridColumn path="description" header={translate('description')} />
               </Grid>
 
           </VerticalLayout>

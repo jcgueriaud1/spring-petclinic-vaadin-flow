@@ -20,6 +20,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.backend.model.BaseEntity;
 import org.springframework.samples.petclinic.backend.owner.Owner;
+import org.springframework.samples.petclinic.endpoint.record.VisitRecord;
 
 /**
  * Repository class for <code>Visit</code> domain objects All method names are compliant with Spring
@@ -42,5 +43,7 @@ public interface VisitRepository extends JpaRepository<Visit, Integer>, JpaSpeci
 	Visit save(Visit visit) throws DataAccessException;
 
 	List<Visit> findByPetId(Integer petId);
+
+	List<VisitRecord> findVisitsByPetId(Integer petId);
 
 }

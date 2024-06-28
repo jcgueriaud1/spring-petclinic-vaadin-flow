@@ -30,6 +30,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,10 +48,12 @@ import org.springframework.samples.petclinic.backend.visit.Visit;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
+	@NotNull
 	@Column(name = "birth_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private PetType type;
@@ -95,7 +98,12 @@ public class Pet extends NamedEntity {
 	}
 
 	protected void setVisitsInternal(Collection<Visit> visits) {
-		this.visits = new LinkedHashSet<>(visits);
+		if (visits != null) {
+			this.visits = new LinkedHashSet<>(visits);
+		} else {
+
+			this.visits = new LinkedHashSet<>();
+		}
 	}
 
 	public List<Visit> getVisits() {

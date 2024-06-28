@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.endpoint;
 
-import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -32,9 +31,6 @@ public class OwnerService {
 		return ownerRepository;
 	}
 
-	public @Nonnull Collection<@Nonnull Owner> findAllOwners() {
-		return getRepository().findAll();
-	}
 	public @Nonnull Page<@Nonnull Owner> findByLastName(String lastName, Pageable pageable) {
 		return getRepository().findByLastName(lastName, pageable);
 	}
@@ -42,9 +38,9 @@ public class OwnerService {
 		return getRepository().countByLastName(lastName);
 	}
 
-	public Optional<@Nonnull OwnerName> findPersonById(@Nonnull Integer id) {
+	public @Nonnull OwnerName findPersonById(@Nonnull Integer id) {
 		Optional<OwnerName> personById = getRepository().findPersonById(id);
-		return personById;
+		return personById.get();
 	}
 
 	public @Nonnull Owner findOwner(@Nonnull Integer ownerId) {

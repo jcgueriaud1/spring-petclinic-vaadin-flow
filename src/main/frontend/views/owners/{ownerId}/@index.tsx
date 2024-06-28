@@ -117,7 +117,7 @@ export default function ViewOwnerView() {
                                                 navigate('/owners/' + ownerId + '/pets/'+pet.value!.id + '/edit')
                                             }}>{translate('editPet')}</Button>
                                             <Button onClick={(e) => {
-                                                navigate('/flow/owners/' + ownerId + '/pets/'+pet.value!.id+'/visits/new')
+                                                navigate('/owners/' + ownerId + '/pets/'+pet.value!.id+'/visits/new')
                                             }}>{translate('addVisit')}</Button>
                                         </HorizontalLayout>
                                     </VerticalLayout>

@@ -7,15 +7,14 @@ import org.springframework.samples.petclinic.backend.owner.Owner;
 import org.springframework.samples.petclinic.backend.owner.OwnerRepository;
 import org.springframework.samples.petclinic.backend.owner.Pet;
 import org.springframework.samples.petclinic.backend.owner.PetRepository;
-import org.springframework.samples.petclinic.backend.owner.PetType;
 import org.springframework.samples.petclinic.backend.visit.Visit;
 import org.springframework.samples.petclinic.backend.visit.VisitRepository;
-import org.springframework.samples.petclinic.ui.view.visit.VisitCreateDto;
+import org.springframework.samples.petclinic.endpoint.record.VisitCreateRecord;
+import org.springframework.samples.petclinic.endpoint.record.VisitRecord;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import com.vaadin.hilla.Nonnull;
-import com.vaadin.hilla.crud.CrudRepositoryService;
 
 @BrowserCallable
 @AnonymousAllowed
@@ -31,18 +30,14 @@ public class VisitService {
 		this.petRepository = petRepository;
 	}
 
-	public List<Visit> findByPetId(Integer petId) {
-		return visitRepository.findByPetId(petId);
-	}
-
 	public @Nonnull VisitCreateRecord get(Integer ownerId, Integer petId) {
 
 		final Owner owner = ownerRepository.findById(ownerId).get();
 
 		final Pet pet = petRepository.findById(petId).get();
 
-		final List<Visit> previousVisits = visitRepository.findByPetId(petId);
-		previousVisits.sort(Comparator.comparing(Visit::getDate).reversed());
+		final List<VisitRecord> previousVisits = visitRepository.findVisitsByPetId(petId);
+		previousVisits.sort(Comparator.comparing(VisitRecord::date).reversed());
 		VisitCreateRecord model = new VisitCreateRecord(ownerId, petId,
 			pet.getName(), pet.getBirthDate(),
 			pet.getType().getName(),
@@ -53,13 +48,12 @@ public class VisitService {
 		return model;
 	}
 
-	public @Nonnull Visit saveVisit(@Nonnull VisitCreateRecord model) {
+	public void saveVisit(@Nonnull VisitCreateRecord model) {
 		final Visit visit = new Visit();
 		visit.setDate(model.visitDate());
 		visit.setDescription(model.description());
 		visit.setPetId(model.petId());
 		visitRepository.save(visit);
-		return visit;
 	}
 
 }

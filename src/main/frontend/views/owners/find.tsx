@@ -6,11 +6,10 @@ import {
     GridDataProviderParams, GridSorterDefinition,
     VerticalLayout
 } from "@vaadin/react-components";
-import {useEffect, useMemo, useState} from "react";
+import {useMemo} from "react";
 import {translate} from "@vaadin/hilla-react-i18n";
 import {
     countByLastName,
-    findAllOwners,
     findByLastName
 } from "../../generated/OwnerService";
 import Owner
@@ -81,16 +80,6 @@ export default function FindOwnersView() {
             },
         [searchTerm.value]
     );
-
-    const items = useSignal<OwnerEnhanced[]>([]);
-    useEffect(() => {
-        findAllOwners().then((value) => {
-            items.value =  value.map((person) => ({
-                ...person,
-                fullName: `${person.firstName} ${person.lastName}`,
-            }));
-        })
-    }, []);
   return (
       <>
           <VerticalLayout theme="padding spacing"

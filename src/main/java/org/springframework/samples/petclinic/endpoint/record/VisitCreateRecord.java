@@ -1,7 +1,6 @@
-package org.springframework.samples.petclinic.endpoint;
+package org.springframework.samples.petclinic.endpoint.record;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -20,5 +19,5 @@ public record VisitCreateRecord(
 	@NotEmpty
 	String description,
 	@NotNull
-	List<Visit> previousVisits) {
+	List<VisitRecord> previousVisits) {
 }

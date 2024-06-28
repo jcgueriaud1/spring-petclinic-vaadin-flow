@@ -9,7 +9,7 @@ import {translate} from "@vaadin/hilla-react-i18n";
 const defaultTitle = document.title;
 
 export default function MainLayout() {
-  const currentTitle = useViewConfig()?.title ?? defaultTitle;
+  const currentTitle = (useViewConfig()?.title) ? (translate(useViewConfig()?.title!)+ " - Spring PetClinic"):  defaultTitle;
   const navigate = useNavigate();
   const location = useLocation();
 
