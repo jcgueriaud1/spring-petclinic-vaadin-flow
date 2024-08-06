@@ -1,12 +1,35 @@
+import { Button } from '@vaadin/react-components/Button';
 import { createMenuItems, useViewConfig } from '@vaadin/hilla-file-router/runtime.js';
-import { AppLayout, DrawerToggle, Icon, SideNav, SideNavItem } from '@vaadin/react-components';
+import {
+    AppLayout,
+    DrawerToggle,
+    Icon,
+    SideNav,
+    SideNavItem,
+    VerticalLayout
+} from '@vaadin/react-components';
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import '@vaadin/icons';
 import {translate} from "@vaadin/hilla-react-i18n";
 
+import { ErrorBoundary } from "react-error-boundary";
+
 const defaultTitle = document.title;
+
+// @ts-ignore
+function Fallback({ error, resetErrorBoundary }) {
+    return (
+        <VerticalLayout role="alert" className="w-full items-center justify-between my-l">
+            <h1>Something went wrong</h1>
+            <p style={{ color: "red" }}>{error.message}</p>
+            <Button theme="primary" onClick={(e) => {
+             resetErrorBoundary();
+            }}>Retry</Button>
+        </VerticalLayout>
+    );
+}
 
 export default function MainLayout() {
   const currentTitle = (useViewConfig()?.title) ? (translate(useViewConfig()?.title!)+ " - Spring PetClinic"):  defaultTitle;
@@ -35,9 +58,11 @@ export default function MainLayout() {
               </HorizontalLayout>
           </header>
           <main>
-              <Suspense>
-                  <div style={{display: 'contents'}}><Outlet/></div>
-              </Suspense>
+              <ErrorBoundary FallbackComponent={Fallback} key={location.pathname}>
+                  <Suspense>
+                      <div style={{display: 'contents'}}><Outlet/></div>
+                  </Suspense>
+              </ErrorBoundary>
           </main>
           <footer className="footer">
               <img src="./images/vaadin.png" alt="Vaadin"/>

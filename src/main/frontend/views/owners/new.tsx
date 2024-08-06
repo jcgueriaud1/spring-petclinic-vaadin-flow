@@ -1,6 +1,6 @@
 import {
     FormItem,
-    FormLayout,
+    FormLayout, Icon,
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
@@ -12,6 +12,10 @@ import {Button} from "@vaadin/react-components/Button.js";
 import {OwnerService} from "../../generated/endpoints";
 import {useNavigate} from "react-router-dom";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
+import ValidationErrors, {
+    handleKeyDown,
+    handleSubmit
+} from "../../ValidationErrors";
 
 
 export const config: ViewConfig = {
@@ -32,37 +36,39 @@ export default function NewOwnerView() {
   return (
       <>
           <VerticalLayout theme="padding spacing"
-                      className="w-full justify-center">
-          <FormLayout
-              responsiveSteps={[{ minWidth: '0', columns: 1 },
-                  { minWidth: '600px', columns: 1 }]
+                          className="w-full justify-center items-stretch"
+                          onKeyDown={(e) => handleKeyDown(e, submit)}>
+              <ValidationErrors />
+              <FormLayout
+                  responsiveSteps={[{minWidth: '0', columns: 1},
+                      {minWidth: '600px', columns: 1}]
 
-              }>
-              <h2>{translate('owner')}</h2>
-              <FormItem>
-                  <label slot="label">{translate('firstName')}</label>
-                  <TextField {...field(model.firstName)}></TextField>
-              </FormItem>
-              <FormItem>
-                  <label slot="label">{translate('lastName')}</label>
-                  <TextField {...field(model.lastName)}></TextField>
-              </FormItem>
-              <FormItem>
-                  <label slot="label">{translate('address')}</label>
-                  <TextField {...field(model.address)}></TextField>
-              </FormItem>
-              <FormItem>
-                  <label slot="label">{translate('city')}</label>
-                  <TextField {...field(model.city)}></TextField>
-              </FormItem>
-              <FormItem>
-                  <label slot="label">{translate('telephone')}</label>
-                  <TextField {...field(model.telephone)}></TextField>
-              </FormItem>
-              <FormItem>
-                  <Button onClick={submit}>{translate('addOwner')}</Button>
-              </FormItem>
-          </FormLayout>
+                  }>
+                  <h2>{translate('owner')}</h2>
+                  <FormItem>
+                      <label slot="label">{translate('firstName')}</label>
+                      <TextField {...field(model.firstName)}></TextField>
+                  </FormItem>
+                  <FormItem>
+                      <label slot="label">{translate('lastName')}</label>
+                      <TextField {...field(model.lastName)}></TextField>
+                  </FormItem>
+                  <FormItem>
+                      <label slot="label">{translate('address')}</label>
+                      <TextField {...field(model.address)}></TextField>
+                  </FormItem>
+                  <FormItem>
+                      <label slot="label">{translate('city')}</label>
+                      <TextField {...field(model.city)}></TextField>
+                  </FormItem>
+                  <FormItem>
+                      <label slot="label">{translate('telephone')}</label>
+                      <TextField {...field(model.telephone)}></TextField>
+                  </FormItem>
+                  <FormItem>
+                      <Button onClick={() => handleSubmit(submit)}>{translate('addOwner')}</Button>
+                  </FormItem>
+              </FormLayout>
           </VerticalLayout>
       </>
   );

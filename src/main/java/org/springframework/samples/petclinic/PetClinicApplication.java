@@ -35,6 +35,7 @@ import com.vaadin.flow.theme.Theme;
 /**
  * PetClinic Spring Boot Application.
  */
+@NpmPackage(value = "react-error-boundary", version = "4.0.13")
 @SpringBootApplication
 @Theme("petclinic")
 @PWA(name = "Pet Clinic", shortName = "Pet Clinic", offlineResources = { "icons/icon.png" })

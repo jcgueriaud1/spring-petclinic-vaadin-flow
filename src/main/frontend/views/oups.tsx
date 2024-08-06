@@ -3,6 +3,7 @@ import {VerticalLayout} from "@vaadin/react-components";
 import {translate} from "@vaadin/hilla-react-i18n";
 import {useEffect} from "react";
 import {ping} from "../generated/ErrorService";
+import { useErrorBoundary } from "react-error-boundary";
 
 export const config: ViewConfig = {
     menu: { order: 4, icon: 'vaadin:warning' },
@@ -10,8 +11,17 @@ export const config: ViewConfig = {
 };
 
 export default function ErrorView() {
+    const { showBoundary } = useErrorBoundary();
     useEffect(() => {
-        ping();
+        ping().then(
+            response => {
+                // Set data in state and re-render
+            },
+            error => {
+                // Show error boundary
+                showBoundary(error);
+            }
+        );
     }, []);
     return (
         <>
