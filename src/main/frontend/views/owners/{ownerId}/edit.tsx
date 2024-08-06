@@ -13,6 +13,10 @@ import {OwnerService} from "../../../generated/endpoints";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
+import ValidationErrors, {
+    handleKeyDown,
+    handleSubmit
+} from "../../../ValidationErrors";
 
 export const config: ViewConfig = {
     menu: { exclude: true}
@@ -36,7 +40,9 @@ export default function EditOwnerView() {
     return (
         <>
             <VerticalLayout theme="padding spacing"
-                            className="w-full justify-center">
+                            className="w-full justify-center items-stretch"
+                            onKeyDown={(e) => handleKeyDown(e, submit)}>
+                <ValidationErrors />
                 <FormLayout
                     responsiveSteps={[{ minWidth: '0', columns: 1 },
                         { minWidth: '600px', columns: 1 }]
@@ -64,7 +70,7 @@ export default function EditOwnerView() {
                         <TextField {...field(model.telephone)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <Button  onClick={submit}>{translate('updateOwner')}</Button>
+                        <Button  onClick={() => handleSubmit(submit)}>{translate('updateOwner')}</Button>
                     </FormItem>
                 </FormLayout>
             </VerticalLayout>
