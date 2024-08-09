@@ -15,6 +15,7 @@ package org.springframework.samples.petclinic.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -28,6 +29,7 @@ import jakarta.validation.constraints.NotNull;
 public class NamedEntity extends BaseEntity {
 
 	@NotNull
+	@NotEmpty(message = "The name is required")
 	@Column(name = "name")
 	private String name;
 

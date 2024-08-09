@@ -14,9 +14,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import ValidationErrors, {
-    handleKeyDown,
-    handleSubmit
+    handleKeyDown
 } from "../../../ValidationErrors";
+import {useSignal} from "@vaadin/hilla-react-signals";
 
 export const config: ViewConfig = {
     menu: { exclude: true}
@@ -36,14 +36,24 @@ export default function EditOwnerView() {
 
     useEffect(() => {
         OwnerService.get(Number(ownerId)).then(read);
-    }, [ownerId])
+    }, [ownerId]);
+
+    const validationErrorSignal = useSignal(null as unknown);
+    const submitWithErrors = async () => {
+        try {
+            validationErrorSignal.value = null;
+            await submit();
+        } catch (error) {
+            validationErrorSignal.value = error;
+        }
+    }
     return (
         <>
             <VerticalLayout theme="padding spacing"
                             className="w-full justify-center items-stretch">
-                <ValidationErrors />
+                <ValidationErrors errors={validationErrorSignal.value}/>
                 <FormLayout
-                    onKeyDown={(e) => handleKeyDown(e, submit)}
+                    onKeyDown={(e) => handleKeyDown(e, submitWithErrors)}
                     responsiveSteps={[{ minWidth: '0', columns: 1 },
                         { minWidth: '600px', columns: 1 }]
 
@@ -70,7 +80,7 @@ export default function EditOwnerView() {
                         <TextField {...field(model.telephone)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <Button  onClick={() => handleSubmit(submit)}>{translate('updateOwner')}</Button>
+                        <Button  onClick={submitWithErrors} className="edit-button">{translate('updateOwner')}</Button>
                     </FormItem>
                 </FormLayout>
             </VerticalLayout>

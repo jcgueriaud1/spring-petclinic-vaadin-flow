@@ -48,12 +48,12 @@ import org.springframework.samples.petclinic.backend.visit.Visit;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
-	@NotNull
+	@NotNull(message = "The birth date is required")
 	@Column(name = "birth_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
-	@NotNull
+	@NotNull(message = "The type is required")
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private PetType type;

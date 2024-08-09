@@ -1,29 +1,20 @@
 import {Icon} from "@vaadin/react-components";
 import {Button} from "@vaadin/react-components/Button";
-import {Signal, signal} from "@vaadin/hilla-react-signals";
 import {ValidationError} from "@vaadin/hilla-lit-form";
 import {EndpointError} from "@vaadin/hilla-frontend";
 import {KeyboardEvent, useEffect, useRef} from "react";
 
-export const validationErrorSignal: Signal<unknown> = signal(null);
-
 export function handleKeyDown(event: KeyboardEvent, submit: any) {
     if (event.key === 'Enter') {
-        void handleSubmit(submit);
+        void submit;
     }
 }
 
-export async function handleSubmit(submit: any): Promise<void> {
-    try {
-        validationErrorSignal.value = null;
-        await submit();
-    } catch (error) {
-        validationErrorSignal.value = error;
-    }
-}
-
-export default function ValidationErrors() {
-    const error = validationErrorSignal.value;
+type ValidationErrorsProps = {
+    errors: unknown;
+};
+export default function ValidationErrors({errors}: ValidationErrorsProps) {
+    const error = errors;
     const containerRef = useRef(null);
     useEffect(() => {
         if (containerRef && (containerRef.current)) {

@@ -47,19 +47,19 @@ import com.vaadin.hilla.Nonnull;
 public class Owner extends Person {
 
 	@Column(name = "address")
-	@NotEmpty
+	@NotEmpty(message = "The address is required")
 	@Nonnull
 	private String address;
 
 	@Column(name = "city")
-	@NotEmpty
+	@NotEmpty(message = "The city is required")
 	@Nonnull
 	private String city;
 
 	@Column(name = "telephone")
-	@NotEmpty
+	@NotEmpty(message = "The phone number is required")
 	@Nonnull
-	@Digits(fraction = 0, integer = 10)
+	@Digits(fraction = 0, integer = 10, message = "The phone number must be a number of maximum 10 digits")
 	private String telephone;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)

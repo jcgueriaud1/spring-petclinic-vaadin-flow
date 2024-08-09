@@ -70,6 +70,7 @@
   height: 46px;
   background: url("./images/spring-logo-dataflow.png") -1px -48px no-repeat;
   opacity: 0;
+    font-size: 1px;
 }
 
 [slot="navbar"] a:hover.navbar-brand span {

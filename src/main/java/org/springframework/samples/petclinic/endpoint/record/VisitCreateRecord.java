@@ -14,9 +14,9 @@ public record VisitCreateRecord(
 	LocalDate petBirthDate,
 	String petType,
 	String petOwner,
-	@NotNull
+	@NotNull(message="The date is required")
 	LocalDate visitDate,
-	@NotEmpty
+	@NotEmpty(message="The description is required")
 	String description,
 	@NotNull
 	List<VisitRecord> previousVisits) {
