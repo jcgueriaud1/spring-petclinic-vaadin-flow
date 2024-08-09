@@ -9,7 +9,6 @@ import org.springframework.samples.petclinic.endpoint.record.VetRecord;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import com.vaadin.hilla.Nonnull;
 
 @BrowserCallable
 @AnonymousAllowed
@@ -21,7 +20,7 @@ public class VetService {
 		this.vetRepository = vetRepository;
 	}
 
-	public @Nonnull Collection<@Nonnull VetRecord> findAllVets() {
+	public Collection<VetRecord> findAllVets() {
 		return vetRepository.findAll().stream().map(vet ->
 			new VetRecord(vet.getId(), vet.getFirstName() + " " + vet.getLastName(),
 				vet.getSpecialties().isEmpty()

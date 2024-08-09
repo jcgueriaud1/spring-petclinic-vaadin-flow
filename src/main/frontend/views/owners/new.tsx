@@ -1,6 +1,6 @@
 import {
     FormItem,
-    FormLayout, Icon,
+    FormLayout,
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
@@ -13,9 +13,8 @@ import {OwnerService} from "../../generated/endpoints";
 import {useNavigate} from "react-router-dom";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import ValidationErrors, {
-    handleKeyDown,
-    handleSubmit
-} from "../../ValidationErrors";
+    handleKeyDown, handleSubmit
+} from "../../ValidationErrors.js";
 
 
 export const config: ViewConfig = {
@@ -36,10 +35,10 @@ export default function NewOwnerView() {
   return (
       <>
           <VerticalLayout theme="padding spacing"
-                          className="w-full justify-center items-stretch"
-                          onKeyDown={(e) => handleKeyDown(e, submit)}>
+                          className="w-full justify-center items-stretch">
               <ValidationErrors />
               <FormLayout
+                  onKeyDown={(e) => handleKeyDown(e, submit)}
                   responsiveSteps={[{minWidth: '0', columns: 1},
                       {minWidth: '600px', columns: 1}]
 

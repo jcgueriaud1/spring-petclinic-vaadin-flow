@@ -31,19 +31,19 @@ public class OwnerService {
 		return ownerRepository;
 	}
 
-	public @Nonnull Page<@Nonnull Owner> findByLastName(String lastName, Pageable pageable) {
+	public Page<Owner> findByLastName(String lastName, Pageable pageable) {
 		return getRepository().findByLastName(lastName, pageable);
 	}
-	public @Nonnull int countByLastName(@Nonnull String lastName) {
+	public int countByLastName(String lastName) {
 		return getRepository().countByLastName(lastName);
 	}
 
-	public @Nonnull OwnerName findPersonById(@Nonnull Integer id) {
+	public OwnerName findPersonById(Integer id) {
 		Optional<OwnerName> personById = getRepository().findPersonById(id);
 		return personById.get();
 	}
 
-	public @Nonnull Owner findOwner(@Nonnull Integer ownerId) {
+	public Owner findOwner(Integer ownerId) {
 		Owner owner = getRepository().findById(ownerId).get();
 		for (Pet pet : owner.getPets()) {
 			visitRepository.findByPetId(pet.getId()).forEach(pet::addVisit);
@@ -52,7 +52,7 @@ public class OwnerService {
 		return owner;
 	}
 
-	public @Nullable Owner save(@Nonnull Owner value) {
+	public Owner save(Owner value) {
 		return getRepository().save(value);
 	}
 

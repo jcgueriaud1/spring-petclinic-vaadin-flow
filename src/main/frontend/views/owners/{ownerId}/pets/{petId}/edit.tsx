@@ -20,6 +20,10 @@ import PetType
 import {useEffect} from "react";
 import OwnerName
     from "../../../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerName";
+import ValidationErrors, {
+    handleKeyDown,
+    handleSubmit
+} from "../../../../../ValidationErrors";
 
 
 export const config: ViewConfig = {
@@ -55,7 +59,9 @@ export default function EditPetView() {
       <>
           <VerticalLayout theme="padding spacing"
                       className="w-full justify-center">
+              <ValidationErrors />
           <FormLayout
+              onKeyDown={(e) => handleKeyDown(e, submit)}
               responsiveSteps={[{ minWidth: '0', columns: 1 },
                   { minWidth: '600px', columns: 1 }]
 
@@ -83,7 +89,7 @@ export default function EditPetView() {
                   items={items.value}></ComboBox>
               </FormItem>
               <FormItem>
-                  <Button onClick={submit}>{translate('updatePet')}</Button>
+                  <Button onClick={() => handleSubmit(submit)}>{translate('updatePet')}</Button>
               </FormItem>
           </FormLayout>
           </VerticalLayout>

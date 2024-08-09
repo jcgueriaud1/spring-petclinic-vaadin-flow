@@ -40,10 +40,10 @@ export default function EditOwnerView() {
     return (
         <>
             <VerticalLayout theme="padding spacing"
-                            className="w-full justify-center items-stretch"
-                            onKeyDown={(e) => handleKeyDown(e, submit)}>
+                            className="w-full justify-center items-stretch">
                 <ValidationErrors />
                 <FormLayout
+                    onKeyDown={(e) => handleKeyDown(e, submit)}
                     responsiveSteps={[{ minWidth: '0', columns: 1 },
                         { minWidth: '600px', columns: 1 }]
 

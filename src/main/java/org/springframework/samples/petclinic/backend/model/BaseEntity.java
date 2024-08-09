@@ -19,6 +19,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
+import com.vaadin.hilla.Nonnull;
+
 /**
  * Simple JavaBean domain object with an id property. Used as a base class for objects needing this
  * property.

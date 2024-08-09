@@ -1,5 +1,4 @@
 import {
-    ComboBox,
     DatePicker,
     FormItem,
     FormLayout, Grid, GridColumn,
@@ -22,6 +21,10 @@ import PetType
 import {useEffect} from "react";
 import VisitCreateRecordModel
     from "../../../../../../generated/org/springframework/samples/petclinic/endpoint/record/VisitCreateRecordModel";
+import ValidationErrors, {
+    handleKeyDown,
+    handleSubmit
+} from "../../../../../../ValidationErrors";
 
 
 export const config: ViewConfig = {
@@ -66,7 +69,9 @@ export default function NewVisitView() {
                   <TextField label={translate('owner')}
                              readonly {...field(model.petOwner)}></TextField>
               </FormLayout>
+              <ValidationErrors />
               <FormLayout
+                  onKeyDown={(e) => handleKeyDown(e, submit)}
                   responsiveSteps={[{minWidth: '0', columns: 1},
                       {minWidth: '600px', columns: 1}]
                   }>
@@ -79,7 +84,7 @@ export default function NewVisitView() {
                       <TextField {...field(model.description)} className="w-full"></TextField>
                   </FormItem>
                   <FormItem>
-                      <Button onClick={submit}>{translate('addVisit')}</Button>
+                      <Button onClick={() => handleSubmit(submit)}>{translate('addVisit')}</Button>
                   </FormItem>
               </FormLayout>
               <Grid items={value.previousVisits} allRowsVisible>

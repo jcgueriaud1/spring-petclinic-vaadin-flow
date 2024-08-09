@@ -14,7 +14,6 @@ import org.springframework.samples.petclinic.endpoint.record.VisitRecord;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import com.vaadin.hilla.Nonnull;
 
 @BrowserCallable
 @AnonymousAllowed
@@ -30,7 +29,7 @@ public class VisitService {
 		this.petRepository = petRepository;
 	}
 
-	public @Nonnull VisitCreateRecord get(Integer ownerId, Integer petId) {
+	public VisitCreateRecord get(Integer ownerId, Integer petId) {
 
 		final Owner owner = ownerRepository.findById(ownerId).get();
 
@@ -48,7 +47,7 @@ public class VisitService {
 		return model;
 	}
 
-	public void saveVisit(@Nonnull VisitCreateRecord model) {
+	public void saveVisit(VisitCreateRecord model) {
 		final Visit visit = new Visit();
 		visit.setDate(model.visitDate());
 		visit.setDescription(model.description());

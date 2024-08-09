@@ -1,10 +1,7 @@
 package org.springframework.samples.petclinic.endpoint;
 
-import java.util.Collection;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.samples.petclinic.backend.owner.Owner;
 import org.springframework.samples.petclinic.backend.owner.OwnerRepository;
 import org.springframework.samples.petclinic.backend.owner.Pet;
@@ -13,9 +10,6 @@ import org.springframework.samples.petclinic.backend.owner.PetType;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import com.vaadin.hilla.Nonnull;
-import com.vaadin.hilla.Nullable;
-import com.vaadin.hilla.crud.CrudRepositoryService;
 
 @BrowserCallable
 @AnonymousAllowed
@@ -29,13 +23,13 @@ public class PetService {
 		this.ownerRepository = ownerRepository;
 	}
 
-	public @Nonnull Pet savePet(@Nonnull Pet pet,@Nonnull Integer ownerId) {
+	public Pet savePet(Pet pet,Integer ownerId) {
 		Owner owner = ownerRepository.findById(ownerId).get();
 		owner.addPet(pet);
 		return getRepository().save(pet);
 	}
 
-	public @Nonnull Pet update(@Nonnull Pet model) {
+	public Pet update(Pet model) {
 		//
 		Pet pet = petRepository.findById(model.getId()).get();
 		pet.setName(model.getName());
@@ -43,7 +37,7 @@ public class PetService {
 		pet.setType(model.getType());
 		return getRepository().save(pet);
 	}
-	public @Nonnull List<@Nonnull PetType> findPetTypes(){
+	public List<PetType> findPetTypes(){
 		return getRepository().findPetTypes();
 	}
 
