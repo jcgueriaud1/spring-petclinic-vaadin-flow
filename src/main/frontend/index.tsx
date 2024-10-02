@@ -8,11 +8,11 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from 'Frontend/generated/routes.js';
 import { i18n } from '@vaadin/hilla-react-i18n';
 
+i18n.configure({ language: document.documentElement.lang }).then(() => {
+    createRoot(document.getElementById('outlet')!).render(createElement(App));
 
-await i18n.configure({ language: document.documentElement.lang });
+});
 
 function App() {
     return <RouterProvider router={router} />;
 }
-
-createRoot(document.getElementById('outlet')!).render(createElement(App));

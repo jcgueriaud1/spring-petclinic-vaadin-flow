@@ -44,7 +44,7 @@ export default function MainLayout() {
       <AppLayout>
           <header>
               <HorizontalLayout slot="navbar" theme="dark padding" id="header" className="w-full items-center justify-between">
-                  <a href="/" className="navbar-brand"><span>Home</span></a>
+                  <a href="/" className="navbar-brand"><span>{translate('home')}</span></a>
                   <SideNav className="side-nav-top" onNavigate={({path}) => navigate(path!)}
                            location={location}>
                       {createMenuItems().map(({to, title, icon}) => (
