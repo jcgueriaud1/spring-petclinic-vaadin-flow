@@ -7,7 +7,7 @@ import {
     VerticalLayout
 } from "@vaadin/react-components";
 import {translate} from "@vaadin/hilla-react-i18n";
-import {useForm} from "@vaadin/hilla-react-form";
+import {useForm, useFormArrayPart} from "@vaadin/hilla-react-form";
 import OwnerModel
     from "../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerModel";
 import {Button} from "@vaadin/react-components/Button.js";
@@ -32,6 +32,7 @@ export default function ViewOwnerView() {
             }
         }
     });
+    const { items } = useFormArrayPart(model.pets);
 
     useEffect(() => {
         OwnerService.findOwner(Number(ownerId)).then(read);
@@ -84,8 +85,8 @@ export default function ViewOwnerView() {
                         <h2>{translate('petsAndVisits')}</h2>
 
                         {
-                            Array.from(model.pets, (pet) => (
-                                <HorizontalLayout key={`${pet.value!.id}`} className="pet-row" theme="spacing">
+                            items.map((pet) => (
+                                <HorizontalLayout key={`${pet.id}`} className="pet-row" theme="spacing">
                             <FormLayout
                                 responsiveSteps={[{minWidth: '0', columns: 1},
                                     {minWidth: '600px', columns: 1}]
@@ -94,30 +95,30 @@ export default function ViewOwnerView() {
                                 <FormItem>
                                     <label slot="label">{translate('name')}</label>
                                     <TextField
-                                        readonly {...field(pet.model.name)}></TextField>
+                                        readonly {...field(pet.name)}></TextField>
                                 </FormItem>
                                 <FormItem>
                                     <label slot="label">{translate('birthDate')}</label>
                                     <DatePicker
-                                        readonly {...field(pet.model.birthDate)}></DatePicker>
+                                        readonly {...field(pet.birthDate)}></DatePicker>
                                 </FormItem>
                                 <FormItem>
                                     <label slot="label">{translate('type')}</label>
                                     <ComboBox itemLabelPath="name"
-                                        readonly {...field(pet.model.type)}></ComboBox>
+                                        readonly {...field(pet.type)}></ComboBox>
                                 </FormItem>
                             </FormLayout>
                                     <VerticalLayout className="visits" theme="padding spacing">
-                                        <Grid items={Array.from(pet.model.visits)} allRowsVisible>
+                                        <Grid items={Array.from(pet.visits)} allRowsVisible>
                                             <GridColumn path="value.date" header={translate('visitDate')} />
                                             <GridColumn path="value.description" header={translate('description')} />
                                         </Grid>
                                         <HorizontalLayout theme="spacing">
                                             <Button onClick={(e) => {
-                                                navigate('/owners/' + ownerId + '/pets/'+pet.value!.id + '/edit')
+                                                navigate('/owners/' + ownerId + '/pets/'+pet.id + '/edit')
                                             }}>{translate('editPet')}</Button>
                                             <Button onClick={(e) => {
-                                                navigate('/owners/' + ownerId + '/pets/'+pet.value!.id+'/visits/new')
+                                                navigate('/owners/' + ownerId + '/pets/'+pet.id+'/visits/new')
                                             }}>{translate('addVisit')}</Button>
                                         </HorizontalLayout>
                                     </VerticalLayout>

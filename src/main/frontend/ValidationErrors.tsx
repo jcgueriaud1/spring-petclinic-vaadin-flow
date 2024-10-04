@@ -3,6 +3,7 @@ import {Button} from "@vaadin/react-components/Button";
 import {ValidationError} from "@vaadin/hilla-lit-form";
 import {EndpointError} from "@vaadin/hilla-frontend";
 import {KeyboardEvent, useEffect, useRef} from "react";
+import {translate} from "@vaadin/hilla-react-i18n";
 
 export function handleKeyDown(event: KeyboardEvent, submit: any) {
     if (event.key === 'Enter') {
@@ -50,7 +51,7 @@ export default function ValidationErrors({errors}: ValidationErrorsProps) {
                                                 if (inputElement && (inputElement instanceof HTMLElement)) {
                                                     inputElement.focus();
                                                 }
-                                            }}>{valueError.validatorMessage ?? valueError.message}
+                                            }}>{valueError.validatorMessage ? translate(valueError.validatorMessage) : translate(valueError.message)}
                                     </Button>
                                 </li>
                             ))}
