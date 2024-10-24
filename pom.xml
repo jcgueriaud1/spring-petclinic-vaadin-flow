@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.3.2</version>
+    <version>3.3.4</version>
   </parent>
   <name>petclinic</name>
 
@@ -22,7 +22,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>17</java.version>
-    <vaadin.version>24.5.0.beta5</vaadin.version>
+    <vaadin.version>24.5.1</vaadin.version>
   </properties>
 
   <dependencyManagement>
@@ -111,11 +111,6 @@
 		<groupId>com.vaadin</groupId>
 		<artifactId>vaadin-spring-boot-starter</artifactId>
 	</dependency>
-	<dependency>
-	    <groupId>com.vaadin</groupId>
-	    <artifactId>vaadin-testbench</artifactId>
-	    <scope>test</scope>
-	</dependency>
 
   </dependencies>
 
@@ -168,9 +163,6 @@
         </configuration>
       </plugin>
 
-
-		<!-- Take care of synchronizing java dependencies and imports in package.json
-			and main.js files. It also creates webpack.config.js if not exists yet. -->
 		<plugin>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-maven-plugin</artifactId>
