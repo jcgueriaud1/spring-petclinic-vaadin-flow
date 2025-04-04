@@ -5,6 +5,7 @@
     "@polymer/polymer": "3.5.2",
     "@vaadin/bundles": "24.7.1",
     "@vaadin/common-frontend": "0.0.19",
+    "@vaadin/cookie-consent": "24.7.1",
     "@vaadin/polymer-legacy-adapter": "24.7.1",
     "@vaadin/react-components": "24.7.1",
     "@vaadin/vaadin-development-mode-detector": "2.0.7",
@@ -46,6 +47,7 @@
       "@polymer/polymer": "3.5.2",
       "@vaadin/bundles": "24.7.1",
       "@vaadin/common-frontend": "0.0.19",
+      "@vaadin/cookie-consent": "24.7.1",
       "@vaadin/polymer-legacy-adapter": "24.7.1",
       "@vaadin/react-components": "24.7.1",
       "@vaadin/vaadin-development-mode-detector": "2.0.7",
@@ -82,7 +84,7 @@
       "workbox-core": "7.3.0",
       "workbox-precaching": "7.3.0"
     },
-    "hash": "fd5c13b90b226e4a4888eb22c0d485e4b52b390f6ce0fbd3a1fe23470e5aa797"
+    "hash": "065ba2c961b55e89e85d1c09d6de02024d63b31c7fad0840d2c475d639c9e781"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -101,7 +103,8 @@
     "@vaadin/react-components": "$@vaadin/react-components",
     "react-dom": "$react-dom",
     "react": "$react",
-    "react-router": "$react-router"
+    "react-router": "$react-router",
+    "@vaadin/cookie-consent": "$@vaadin/cookie-consent"
   },
   "type": "module"
 }

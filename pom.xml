@@ -110,11 +110,23 @@
 		<groupId>com.vaadin</groupId>
 		<artifactId>vaadin-spring-boot-starter</artifactId>
 	</dependency>
-	<dependency>
-	    <groupId>com.vaadin</groupId>
-	    <artifactId>vaadin-testbench</artifactId>
-	    <scope>test</scope>
-	</dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-testbench-junit5</artifactId>
+      <scope>test</scope>
+    </dependency><!-- WebDriver Management Software -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>6.0.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.playwright</groupId>
+      <artifactId>playwright</artifactId>
+      <version>1.50.0</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 

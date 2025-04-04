@@ -20,34 +20,31 @@ public abstract class OwnerFormView extends VerticalLayout {
     OwnerFormView(OwnerFormPresenter<? extends OwnerFormView> presenter) {
         setWidthFull();
 
-        TextField firstNameTextField = new TextField();
+        TextField firstNameTextField = new TextField(getTranslation("firstName"));
         binder.forField(firstNameTextField).asRequired().bind(Owner::getFirstName,
                 Owner::setFirstName);
 
-        TextField lastNameTextField = new TextField();
+        TextField lastNameTextField = new TextField(getTranslation("lastName"));
         binder.forField(lastNameTextField).asRequired().bind(Owner::getLastName,
                 Owner::setLastName);
 
-        TextField addressTextField = new TextField();
+        TextField addressTextField = new TextField(getTranslation("address"));
         binder.forField(addressTextField).asRequired().bind(Owner::getAddress, Owner::setAddress);
 
-        TextField cityTextField = new TextField();
+        TextField cityTextField = new TextField(getTranslation("city"));
         binder.forField(cityTextField).asRequired().bind(Owner::getCity, Owner::setCity);
 
-        TextField telephoneTextField = new TextField();
+        TextField telephoneTextField = new TextField(getTranslation("telephone"));
         binder.forField(telephoneTextField)
                 .asRequired()
                 .withValidator(new RegexpValidator(getTranslation("telephoneError"), "\\d{1,10}"))
                 .bind(Owner::getTelephone, Owner::setTelephone);
 
-        FormLayout ownerForm = new FormLayout();
+        VerticalLayout ownerForm = new VerticalLayout();
+		ownerForm.setPadding(false);
+		ownerForm.setSpacing(false);
         ownerForm.setWidthFull();
-        FormUtil.singleColumn(ownerForm);
-        ownerForm.addFormItem(firstNameTextField, getTranslation("firstName"));
-        ownerForm.addFormItem(lastNameTextField, getTranslation("lastName"));
-        ownerForm.addFormItem(addressTextField, getTranslation("address"));
-        ownerForm.addFormItem(cityTextField, getTranslation("city"));
-        ownerForm.addFormItem(telephoneTextField, getTranslation("telephone"));
+		ownerForm.add(firstNameTextField, lastNameTextField, addressTextField, cityTextField, telephoneTextField);
 
         Button updateOwnerButton = new Button(actionButtonLabel());
         updateOwnerButton.addClickListener(this::actionButtonListener);
