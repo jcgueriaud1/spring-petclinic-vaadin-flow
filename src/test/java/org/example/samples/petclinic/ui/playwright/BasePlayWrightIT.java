@@ -105,11 +105,8 @@ public class BasePlayWrightIT implements HasTestView {
 
     protected void fill(Locator locator, String value) {
         if (!locator.first().locator("input").all().isEmpty()) {
-			System.out.println("INPUT");
             locator = locator.first().locator("input");
-        } else {
-			System.out.println("NOT INPUT");
-		}
+        }
         locator.nth(0).fill(value);
         locator.nth(0).blur();
         getPage().waitForTimeout(10);
