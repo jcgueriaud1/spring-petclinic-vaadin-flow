@@ -6,6 +6,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Locator.DispatchEventOptions;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import org.example.samples.petclinic.ui.playwright.element.VaadinQuery;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,6 +48,7 @@ public class BasePlayWrightIT implements HasTestView {
     protected Page page;
     protected static Playwright playwright;
     protected static Browser browser;
+	protected VaadinQuery vaadinQuery;
 
     @BeforeEach
     public void setupTest() throws Exception {
@@ -55,6 +57,7 @@ public class BasePlayWrightIT implements HasTestView {
         page.waitForFunction(WAIT_FOR_VAADIN_SCRIPT);
         page.setDefaultNavigationTimeout(4000);
         page.setDefaultTimeout(15000);
+		vaadinQuery = new VaadinQuery(page);
     }
 
     @AfterEach
@@ -71,8 +74,10 @@ public class BasePlayWrightIT implements HasTestView {
     @BeforeAll
     public static void setup() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new LaunchOptions()
-                .setHeadless(System.getProperty("headless") == null || Boolean.getBoolean("headless")));
+     //   browser = playwright.chromium().launch(new LaunchOptions()
+    //            .setHeadless(System.getProperty("headless") == null || Boolean.getBoolean("headless")));
+		browser = playwright.chromium().launch(new LaunchOptions()
+			.setHeadless(false));
     }
 
     protected Page getPage() {

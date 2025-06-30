@@ -1,6 +1,8 @@
 package org.example.samples.petclinic.ui.playwright;
 
 import com.microsoft.playwright.Locator;
+import org.example.samples.petclinic.ui.playwright.element.TextFieldElement;
+import org.example.samples.petclinic.ui.playwright.element.VaadinQuery;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,5 +49,19 @@ public class OwnerCreateViewIT extends BasePlayWrightIT {
 		click(getButtonByText("Add Owner"));
 		assertThat(telephoneField).hasAttribute("invalid", "");
 		assertThat(page.locator("div").getByText("Telephone must have 1 to 10 digits")).isVisible();
+	}
+
+
+	@Test
+	public void testCreateOwnerAsTestbench() {
+		System.out.println(vaadinQuery.first(TextFieldElement.class).getText());
+		fill(getTextFieldByLabel("Last Name"), "Doe");
+		fill(getTextFieldByLabel("First Name"), "John");
+		fill(getTextFieldByLabel("Address"), "Address");
+		fill(getTextFieldByLabel("City"), "Turku");
+		fill(getTextFieldByLabel("Telephone"), "044444444");
+
+		click(getButtonByText("Add Owner"));
+		assertThat(page.locator("h2")).hasText("Owner Information");
 	}
 }
